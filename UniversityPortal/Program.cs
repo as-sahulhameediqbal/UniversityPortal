@@ -27,7 +27,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 
-
 var app = builder.Build();
 
 await Seed.SeedUsersAndRolesAsync(app);
