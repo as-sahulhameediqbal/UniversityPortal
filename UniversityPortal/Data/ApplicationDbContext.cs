@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using UniversityPortal.Entity;
 
@@ -12,7 +11,8 @@ namespace UniversityPortal.Data
         {
         }
 
-        public DbSet<University> User { get; set; }
-        public DbSet<Student> College { get; set; }
+        public DbSet<University> University { get; set; }
+        public DbSet<UniversityStaff> UniversityStaff { get; set; }
+        public DbSet<Student> Student { get; set; }
     }
 }

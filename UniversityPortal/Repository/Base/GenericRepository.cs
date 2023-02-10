@@ -28,6 +28,12 @@ namespace UniversityPortal.Repository.Base
         {
             return await _dbContext.Set<T>().FirstOrDefaultAsync(expression);
         }
+
+        public async Task<bool> FindAny(Expression<Func<T, bool>> expression)
+        {
+            return await _dbContext.Set<T>().FirstOrDefaultAsync(expression) != null;
+        }
+
         public async Task<IEnumerable<T>> GetAll()
         {
             return await _dbContext.Set<T>().ToListAsync();
@@ -35,7 +41,7 @@ namespace UniversityPortal.Repository.Base
 
         public async Task Add(T entity)
         {
-            await _dbContext.Set<T>().AddAsync(entity);
+           await _dbContext.Set<T>().AddAsync(entity);
         }
 
         public async Task AddRange(IEnumerable<T> entities)

@@ -2,8 +2,8 @@
 
 namespace UniversityPortal.Models
 {
-    public class UniversityViewModel
-    {        
+    public class UniversityStaffViewModel
+    {
         public Guid Id { get; set; }
 
         [Required]
@@ -16,14 +16,7 @@ namespace UniversityPortal.Models
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Required]
-        public string Code { get; set; }
-
-        [Required]
-        [DataType(DataType.Url)]
-        public string Website { get; set; }
+        public string Password { get; set; }       
 
         [Required]
         [DataType(DataType.PhoneNumber)]
@@ -35,5 +28,7 @@ namespace UniversityPortal.Models
 
         [Required]
         public bool IsActive { get; set; }
+        public Guid UniversityId { get; set; }
+
     }
 }
