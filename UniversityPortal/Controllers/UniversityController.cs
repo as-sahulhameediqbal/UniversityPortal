@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
-using UniversityPortal.Services;
 
 namespace UniversityPortal.Controllers
 {
