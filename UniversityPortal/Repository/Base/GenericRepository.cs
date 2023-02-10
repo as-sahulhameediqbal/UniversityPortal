@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Repository;
@@ -22,6 +23,11 @@ namespace UniversityPortal.Repository.Base
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _dbContext.Set<T>().Where(expression);
+        }
+
+        public async Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> expression)
+        {
+            return await _dbContext.Set<T>().Where(expression).ToListAsync();
         }
 
         public async Task<T> FindAsync(Expression<Func<T, bool>> expression)

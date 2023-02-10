@@ -4,17 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="AddNew">Create New</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+        <tr>            
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -22,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
+                @Html.DisplayNameFor(model => model.Role)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
@@ -33,49 +28,39 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UniversityId)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 
-        @if(Model !=null)
+        @if (Model != null)
         {
-            @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UniversityId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-}
+            @foreach (var item in Model)
+            {
+                <tr>                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("View", "View", new {  id=item.Id  })
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

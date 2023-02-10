@@ -64,12 +64,10 @@ namespace UniversityPortal.Services
 
             await UnitOfWork.Save();
 
-            var universityStaff = Mapper.Map<UniversityStaffViewModel>(model);
-            if (model.Id == Guid.Empty)
-            {
-                universityStaff.UniversityId = await GetId(model.Email);
-                universityStaff.Role = UserRoles.Admin;
-            }
+            var universityStaff = Mapper.Map<UniversityStaffViewModel>(model);            
+            universityStaff.UniversityId = await GetId(model.Email);
+            universityStaff.Role = UserRoles.Admin;
+
             result = await _universityStaffService.Create(universityStaff, (model.Id == Guid.Empty));
 
             return result;

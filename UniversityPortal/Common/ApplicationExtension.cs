@@ -22,7 +22,6 @@ namespace UniversityPortal.Common
             service.AddTransient<IStudentService, StudentService>();
 
             service.AddTransient<IUnitOfWork, UnitOfWork>();
-
             return service;
         }
     }

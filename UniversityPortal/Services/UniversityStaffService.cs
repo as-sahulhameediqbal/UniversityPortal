@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using UniversityPortal.Common;
+using UniversityPortal.Data;
 using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
@@ -24,10 +25,29 @@ namespace UniversityPortal.Services
         public async Task<UniversityStaffViewModel> Get(Guid id)
         {
             var result = await UnitOfWork.UniversityStaffRepository.Get(id);
-            var university = Mapper.Map<UniversityStaffViewModel>(result);
-            return university;
+            var universityStaff = Mapper.Map<UniversityStaffViewModel>(result);
+            universityStaff.Password = "Test";
+            return universityStaff;
 
         }
+
+        public async Task<IEnumerable<UniversityStaffViewModel>> GetAll()
+        {
+            var universityId = await GetUniversityId();
+            var result = await UnitOfWork.UniversityStaffRepository.FindAll(x => x.UniversityId == universityId
+                                                                               && x.Role != UserRoles.Admin);
+            var university = Mapper.Map<IEnumerable<UniversityStaffViewModel>>(result);
+            return university;
+        }
+
+        private async Task<Guid> GetUniversityId()
+        {
+            var result = await UnitOfWork.UniversityStaffRepository.FindAsync(x => x.IsActive
+                                                                             && x.Email == CurrentUserService.Email);
+
+            return result.UniversityId;
+        }
+
         public async Task<AppResponse> Save(UniversityStaffViewModel model)
         {
             var result = await IsUniversityStaffExists(model);
@@ -38,6 +58,7 @@ namespace UniversityPortal.Services
 
             if (model.Id == Guid.Empty)
             {
+                model.UniversityId = await GetUniversityId();
                 result = await _userService.Create(model.Email, model.Password, model.Role);
                 if (!result.Success)
                 {

@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using UniversityPortal.Common;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
-using UniversityPortal.Services;
 
 namespace UniversityPortal.Controllers
 {
+    [Authorize]
     public class UniversityStaffController : Controller
     {
         private readonly IUniversityStaffService _universityStaffService;
@@ -14,22 +15,72 @@ namespace UniversityPortal.Controllers
         {
             _universityStaffService = universityStaffService;
         }
-        public IActionResult Index()
+
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var response = await _universityStaffService.GetAll();
+            return View(response);
+        }
+
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var response = new UniversityStaffViewModel();
+            response.IsActive = true;
+            return View(response);
+        }
+
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> Create(UniversityStaffViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await _universityStaffService.Save(model);
+            if (!result.Success)
+            {
+                TempData["Error"] = result.Message;
+                return View(model);
+            }
+            return RedirectToAction("Index", "UniversityStaff");
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddNew()
-        {            
-            return View();
+        public async Task<IActionResult> View(Guid id)
+        {
+            var response = await _universityStaffService.Get(id);
+            return View(response);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddNew(UniversityStaffViewModel model)
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
         {
-            await _universityStaffService.Save(model);
-            return View();
+            var response = await _universityStaffService.Get(id);
+            return View(response);
+        }
+
+
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> Edit(UniversityStaffViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await _universityStaffService.Save(model);
+            if (!result.Success)
+            {
+                TempData["Error"] = result.Message;
+                return View(model);
+            }
+            return RedirectToAction("Index", "UniversityStaff");
         }
     }
 }

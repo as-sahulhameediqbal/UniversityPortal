@@ -6,6 +6,7 @@ namespace UniversityPortal.Interfaces.Repository
     {
         Task<T> Get(Guid id);
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> expression);
         Task<T> FindAsync(Expression<Func<T, bool>> expression);
         Task<bool> FindAny(Expression<Func<T, bool>> expression);
         Task<IEnumerable<T>> GetAll();

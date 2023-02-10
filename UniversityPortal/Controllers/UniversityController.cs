@@ -24,6 +24,7 @@ namespace UniversityPortal.Controllers
             return View(response);
         }
 
+        [Authorize(Roles = UserRoles.PortalAdmin)]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -32,6 +33,7 @@ namespace UniversityPortal.Controllers
             return View(response);
         }
 
+        [Authorize(Roles = UserRoles.PortalAdmin)]
         [HttpPost]
         public async Task<IActionResult> Create(UniversityViewModel model)
         {
@@ -48,15 +50,6 @@ namespace UniversityPortal.Controllers
             return RedirectToAction("Index", "University");
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            var response = await _universityService.Get(id);            
-            return View(response);
-        }
-
-
         [HttpGet]
         public async Task<IActionResult> View(Guid id)
         {
@@ -64,6 +57,16 @@ namespace UniversityPortal.Controllers
             return View(response);
         }
 
+        [Authorize(Roles = UserRoles.PortalAdmin)]
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var response = await _universityService.Get(id);            
+            return View(response);
+        }
+                
+
+        [Authorize(Roles = UserRoles.PortalAdmin)]
         [HttpPost]
         public async Task<IActionResult> Edit(UniversityViewModel model)
         {
