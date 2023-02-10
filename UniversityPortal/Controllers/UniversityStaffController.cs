@@ -26,9 +26,9 @@ namespace UniversityPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNew(UniversityStaffViewModel model, bool isAdd)
+        public async Task<IActionResult> AddNew(UniversityStaffViewModel model)
         {
-            await _universityStaffService.Create(model, isAdd);
+            await _universityStaffService.Save(model);
             return View();
         }
     }

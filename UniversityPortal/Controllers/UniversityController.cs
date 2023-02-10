@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
+using UniversityPortal.Models;
+using UniversityPortal.Services;
 
 namespace UniversityPortal.Controllers
 {
@@ -16,12 +18,68 @@ namespace UniversityPortal.Controllers
         }
 
         [Authorize(Roles = UserRoles.PortalAdmin)]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await _universityService.GetAll();            
+            var response = await _universityService.GetAll();
+            return View(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var response = new UniversityViewModel();
+            response.IsActive = true;
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(UniversityViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await _universityService.Save(model);
+            if (!result.Success)
+            {
+                TempData["Error"] = result.Message;
+                return View(model);
+            }
+            return RedirectToAction("Index", "University");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var response = await _universityService.Get(id);            
             return View(response);
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> View(Guid id)
+        {
+            var response = await _universityService.Get(id);
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UniversityViewModel model)
+        {
+            //ModelState[nameof(model.Password)].Errors.Clear();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await _universityService.Save(model);
+            if (!result.Success)
+            {
+                TempData["Error"] = result.Message;
+                return View(model);
+            }
+            return RedirectToAction("Index", "University");
+        }
     }
 }

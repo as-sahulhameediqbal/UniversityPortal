@@ -23,6 +23,9 @@ namespace UniversityPortal.Models
         public string PhoneNumber { get; set; }
 
         [Required]
+        public string Role { get; set; }
+
+        [Required]
         [DataType(DataType.MultilineText)]
         public string Address { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using UniversityPortal.Common;
-using UniversityPortal.Data;
 using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
@@ -39,7 +38,7 @@ namespace UniversityPortal.Services
 
             if (model.Id == Guid.Empty)
             {
-                result = await _userService.Create(model.Email, model.Password, UserRoles.Admin);
+                result = await _userService.Create(model.Email, model.Password, model.Role);
                 if (!result.Success)
                 {
                     return result;
@@ -59,6 +58,13 @@ namespace UniversityPortal.Services
         public async Task<AppResponse> Create(UniversityStaffViewModel model, bool isAdd)
         {
             model.Id = Guid.Empty;
+            if (!isAdd)
+            {
+                var universityStaff = await UnitOfWork.UniversityStaffRepository.FindAsync(x => x.IsActive
+                                                                                   && x.Email == model.Email);
+                model.Id = universityStaff.Id;
+            }
+
             var result = await IsUniversityStaffExists(model);
             if (!result.Success)
             {
@@ -66,7 +72,7 @@ namespace UniversityPortal.Services
             }
             if (isAdd)
             {
-                result = await _userService.Create(model.Email, model.Password, UserRoles.Admin);
+                result = await _userService.Create(model.Email, model.Password, model.Role);
                 if (!result.Success)
                 {
                     return result;
@@ -75,10 +81,6 @@ namespace UniversityPortal.Services
             }
             else
             {
-                var universityStaff = await UnitOfWork.UniversityStaffRepository.FindAsync(x => x.IsActive
-                                                                                    && x.Email == model.Email);
-                model.Id = universityStaff.Id;
-
                 await Update(model);
             }
             await UnitOfWork.Save();

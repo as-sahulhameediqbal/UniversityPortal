@@ -27,6 +27,7 @@ namespace UniversityPortal.Services
         {
             var result = await UnitOfWork.UniversityRepository.Get(id);
             var university = Mapper.Map<UniversityViewModel>(result);
+            university.Password = "Test";
             return university;
         }
 
@@ -67,6 +68,7 @@ namespace UniversityPortal.Services
             if (model.Id == Guid.Empty)
             {
                 universityStaff.UniversityId = await GetId(model.Email);
+                universityStaff.Role = UserRoles.Admin;
             }
             result = await _universityStaffService.Create(universityStaff, (model.Id == Guid.Empty));
 

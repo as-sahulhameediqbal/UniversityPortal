@@ -48,12 +48,18 @@ namespace UniversityPortal.Services
             var newuser = new IdentityUser()
             {
                 Email = email,
-                UserName = email
+                UserName = email,
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(newuser, password);
             if (result.Succeeded)
             {
+                if (!await _roleManager.RoleExistsAsync(role))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+
                 await _userManager.AddToRoleAsync(newuser, role);
             }
 
