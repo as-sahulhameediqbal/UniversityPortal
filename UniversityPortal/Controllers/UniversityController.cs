@@ -68,7 +68,6 @@ namespace UniversityPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UniversityViewModel model)
         {
-            //ModelState[nameof(model.Password)].Errors.Clear();
             if (!ModelState.IsValid)
             {
                 return View(model);
