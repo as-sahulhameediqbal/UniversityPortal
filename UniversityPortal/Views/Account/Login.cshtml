@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="~/UniversityPortal.styles.css" asp-append-version="true" />
 </head>
 <body class="login-container">
-    
+
     <div class="loginbox">
         <h2>LOGIN</h2>
         <img src="~/img/logo-icon.svg" class="Logo">
@@ -41,17 +41,17 @@
             </div>
         </form>
     </div>
-@*<div>
+    @*<div>
     <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-</div>*@
+    </div>*@
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
