@@ -26,7 +26,7 @@ namespace UniversityPortal.Services
         {
             var result = await UnitOfWork.UniversityStaffRepository.Get(id);
             var universityStaff = Mapper.Map<UniversityStaffViewModel>(result);
-            universityStaff.Password = "Test";
+            universityStaff.Password = nameof(universityStaff.Password);
             return universityStaff;
 
         }

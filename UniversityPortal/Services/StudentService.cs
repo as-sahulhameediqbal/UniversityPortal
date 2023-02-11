@@ -30,7 +30,7 @@ namespace UniversityPortal.Services
         {
             var result = await UnitOfWork.StudentRepository.Get(id);
             var student = Mapper.Map<StudentViewModel>(result);
-            student.Password = "Test";
+            student.Password = nameof(student.Password);
             return student;
 
         }

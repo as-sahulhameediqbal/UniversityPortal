@@ -7,5 +7,6 @@
         public IUniversityStaffRepository UniversityStaffRepository { get; }
         public IStudentRepository StudentRepository { get; }
         public IPaperRepository PaperRepository { get; }
+        public IStudentExamRepository StudentExamRepository { get; }
     }
 }
