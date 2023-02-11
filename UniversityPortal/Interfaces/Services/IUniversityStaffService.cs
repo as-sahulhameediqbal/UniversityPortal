@@ -7,7 +7,8 @@ namespace UniversityPortal.Interfaces.Services
     {
         Task<UniversityStaffViewModel> Get(Guid id);
         Task<IEnumerable<UniversityStaffViewModel>> GetAll();
+        Task<Guid> GetUniversityId();
         Task<AppResponse> Save(UniversityStaffViewModel model);
-        Task<AppResponse> Create(UniversityStaffViewModel model, bool isAdd);
+        Task<AppResponse> Create(UniversityStaffViewModel model, bool isAdd);       
     }
 }

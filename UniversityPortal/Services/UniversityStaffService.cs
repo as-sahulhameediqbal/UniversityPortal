@@ -40,7 +40,7 @@ namespace UniversityPortal.Services
             return university;
         }
 
-        private async Task<Guid> GetUniversityId()
+        public async Task<Guid> GetUniversityId()
         {
             var result = await UnitOfWork.UniversityStaffRepository.FindAsync(x => x.IsActive
                                                                              && x.Email == CurrentUserService.Email);

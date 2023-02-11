@@ -1,11 +1,17 @@
 ﻿using UniversityPortal.Common;
 using UniversityPortal.Models;
+
 namespace UniversityPortal.Interfaces.Services
 {
     public interface IStudentService
     {
-        Task<AppResponse> AddStudent(StudentRegistrationViewModel model);
-        Task<AppResponse> AddFee(FeesViewModel model);
-        Task<AppResponse> AddMarks(MarksViewModel marksViewModel);
+        Task<StudentViewModel> Get(Guid id);
+        Task<IEnumerable<StudentViewModel>> GetAll();
+        Task<AppResponse> Save(StudentViewModel model);
+
+
+
+        //Task<AppResponse> AddFee(FeesViewModel model);
+        //Task<AppResponse> AddMarks(MarksViewModel marksViewModel);
     }
 }

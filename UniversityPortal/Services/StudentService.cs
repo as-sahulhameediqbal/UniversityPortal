@@ -5,54 +5,123 @@ using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Services.Base;
 using UniversityPortal.Models;
+using UniversityPortal.Data;
+using UniversityPortal.Common;
+
 namespace UniversityPortal.Services
 {
     public class StudentService : BaseService, IStudentService
     {
+        private readonly IUserService _userService;
+        private readonly IUniversityStaffService _universityStaffService;
         public StudentService(IUnitOfWork unitOfWork,
                               IMapper mapper,
                               IDateTimeProvider dateTimeProvider,
-                              ICurrentUserService currentUserService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
+                              ICurrentUserService currentUserService,
+                              IUserService userService,
+                              IUniversityStaffService universityStaffService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
-
+            _userService = userService;
+            _universityStaffService = universityStaffService;
         }
 
-        public async Task AddStudent(StudentRegistrationViewModel studentViewModel)
-        {
-            var student = Mapper.Map<Student>(studentViewModel);
 
-            studentViewModel.Id = Guid.NewGuid();
-            studentViewModel.CreatedBy = CurrentUserService.UserId;
-            studentViewModel.CreatedDate = DateTimeProvider.DateTimeOffsetNow;
-            studentViewModel.ModifiedBy = CurrentUserService.UserId;
-            studentViewModel.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+        public async Task<StudentViewModel> Get(Guid id)
+        {
+            var result = await UnitOfWork.StudentRepository.Get(id);
+            var student = Mapper.Map<StudentViewModel>(result);
+            student.Password = "Test";
+            return student;
+
+        }
+        public async Task<IEnumerable<StudentViewModel>> GetAll()
+        {
+            var universityId = await _universityStaffService.GetUniversityId();
+            var result = await UnitOfWork.StudentRepository.FindAll(x => x.UniversityId == universityId);
+            var student = Mapper.Map<IEnumerable<StudentViewModel>>(result);
+            return student;
+        }
+
+        public async Task<AppResponse> Save(StudentViewModel model)
+        {
+            var result = await IsStudentExists(model);
+            if (!result.Success)
+            {
+                return result;
+            }
+
+            if (model.Id == Guid.Empty)
+            {
+                model.UniversityId = await _universityStaffService.GetUniversityId();
+                result = await _userService.Create(model.Email, model.Password, UserRoles.Student);
+                if (!result.Success)
+                {
+                    return result;
+                }
+                await Add(model);
+            }
+            else
+            {
+                await Update(model);
+            }
+
+            await UnitOfWork.Save();
+
+            return result;
+        }
+
+        private async Task Add(StudentViewModel model)
+        {
+            var student = Mapper.Map<Student>(model);
+
+            student.Id = Guid.NewGuid();
+            student.UserId = await _userService.GetUserId(model.Email);
+            student.CreatedBy = CurrentUserService.UserId;
+            student.CreatedDate = DateTimeProvider.DateTimeOffsetNow;
+            student.ModifiedBy = CurrentUserService.UserId;
+            student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
 
             await UnitOfWork.StudentRepository.Add(student);
         }
-        public async Task AddFee(FeesViewModel model)
+
+        private async Task Update(StudentViewModel model)
         {
-            var fee = Mapper.Map<Fees>(model);
+            var student = await UnitOfWork.StudentRepository.Get(model.Id);
 
-            model.Id = Guid.NewGuid();
-            model.CreatedBy = CurrentUserService.UserId;
-            model.CreatedDate = DateTimeProvider.DateTimeOffsetNow;
-            model.ModifiedBy = CurrentUserService.UserId;
-            model.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+            student = Mapper.Map(model, student);
 
-            await UnitOfWork.StudentRepository.Add(fee);
+            student.ModifiedBy = CurrentUserService.UserId;
+            student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+
+            UnitOfWork.StudentRepository.Update(student);
         }
 
-        public async Task AddMarks(MarksViewModel model)
+        private async Task<AppResponse> IsStudentExists(StudentViewModel model)
         {
-            var marks = Mapper.Map<Marks>(model);
+            if (model.Id == Guid.Empty)
+            {
+                var result = await UnitOfWork.StudentRepository.FindAny(x => x.IsActive
+                                                                          && x.Name == model.Name
+                                                                          && x.Email == model.Email);
+                if (result)
+                {
+                    return AppResult.msg(false, "Student already exist");
+                }
+            }
+            else
+            {
+                var result = await UnitOfWork.StudentRepository.FindAny(x => x.IsActive
+                                                                             && x.Name == model.Name
+                                                                            && x.Email == model.Email
+                                                                            && x.Id != model.Id);
+                if (result)
+                {
+                    return AppResult.msg(false, "Student already exist");
+                }
+            }
 
-            model.Id = Guid.NewGuid();
-            model.CreatedBy = CurrentUserService.UserId;
-            model.CreatedDate = DateTimeProvider.DateTimeOffsetNow;
-            model.ModifiedBy = CurrentUserService.UserId;
-            model.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
-
-            await UnitOfWork.StudentRepository.Add(marks);
+            return AppResult.msg(true, "Student not exist");
         }
+
     }
 }

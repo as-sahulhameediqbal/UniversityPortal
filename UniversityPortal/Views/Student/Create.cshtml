@@ -1,4 +1,4 @@
-﻿@model UniversityPortal.Models.UniversityStaffViewModel
+﻿@model UniversityPortal.Models.StudentViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -17,10 +17,21 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdmissionNumber" class="control-label"></label>
+                <input asp-for="AdmissionNumber" class="form-control" />
+                <span asp-validation-for="AdmissionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RollNumber" class="control-label"></label>
+                <input asp-for="RollNumber" class="form-control" />
+                <span asp-validation-for="RollNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -33,25 +44,40 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Program" class="control-label"></label>
+                <input asp-for="Program" class="form-control" />
+                <span asp-validation-for="Program" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department" class="control-label"></label>
+                <input asp-for="Department" class="form-control" />
+                <span asp-validation-for="Department" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
-                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <textarea asp-for="Address" class="form-control"></textarea>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="JoiningDate" class="control-label"></label>
+                <input asp-for="JoiningDate" class="form-control" />
+                <span asp-validation-for="JoiningDate" class="text-danger"></span>
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                 </label>
-            </div>
+            </div>           
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -64,7 +90,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
