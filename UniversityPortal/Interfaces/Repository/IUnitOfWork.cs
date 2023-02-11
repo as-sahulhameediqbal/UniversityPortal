@@ -6,6 +6,6 @@
         public IUniversityRepository UniversityRepository { get; }
         public IUniversityStaffRepository UniversityStaffRepository { get; }
         public IStudentRepository StudentRepository { get; }
-
+        public IPaperRepository PaperRepository { get; }
     }
 }

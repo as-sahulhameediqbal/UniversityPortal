@@ -13,13 +13,14 @@ namespace UniversityPortal.Repository.Base
             UniversityRepository = new UniversityRepository(dbContext);
             UniversityStaffRepository = new UniversityStaffRepository(dbContext);
             StudentRepository = new StudentRepository(dbContext);
-
+            PaperRepository = new PaperRepository(dbContext);
 
         }
 
         public IUniversityRepository UniversityRepository { get; private set; }
         public IUniversityStaffRepository UniversityStaffRepository { get; private set; }
         public IStudentRepository StudentRepository { get; private set; }
+        public IPaperRepository PaperRepository { get; private set; }
 
 
 

@@ -35,6 +35,10 @@ namespace UniversityPortal.Models
 
         [DataType(DataType.Date)]
         public DateTimeOffset JoiningDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
+        public decimal TutionFee { get; set; }
         public bool IsActive { get; set; }
 
         public Guid UniversityId { get; set; }
