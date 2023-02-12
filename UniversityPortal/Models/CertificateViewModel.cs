@@ -4,10 +4,10 @@ namespace UniversityPortal.Models
 {
     public class CertificateViewModel
     {
-        public string UniversityName { get; set; }
-        public string Name { get; set; }
-        public string ClassType { get; set; } // first second
-        public string DegreeName { get; set; }
-        public string Department { get; set; }
+        public string UniversityName { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public string ClassType { get; set; } = null!; // first second
+        public string DegreeName { get; set; } = null!;
+        public string Department { get; set; } = null!;
     }
 }
