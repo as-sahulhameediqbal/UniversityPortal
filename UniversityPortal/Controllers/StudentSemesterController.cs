@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 
 namespace UniversityPortal.Controllers
 {
     [Authorize(Roles = UserRoles.Student)]
-    public class StudentExamController : Controller
+    public class StudentSemesterController : Controller
     {
         private IStudentExamService _studentExamService;
 
-        public StudentExamController(IStudentExamService studentExamService)
+        public StudentSemesterController(IStudentExamService studentExamService)
         {
-            _studentExamService= studentExamService;
+            _studentExamService = studentExamService;
         }
 
 

@@ -15,6 +15,7 @@ namespace UniversityPortal.Repository.Base
             StudentRepository = new StudentRepository(dbContext);
             PaperRepository = new PaperRepository(dbContext);
             StudentExamRepository = new StudentExamRepository(dbContext);
+            SemesterExamRepository = new SemesterExamRepository(dbContext);
 
         }
 
@@ -23,6 +24,7 @@ namespace UniversityPortal.Repository.Base
         public IStudentRepository StudentRepository { get; private set; }
         public IPaperRepository PaperRepository { get; private set; }
         public IStudentExamRepository StudentExamRepository { get; private set; }
+        public ISemesterExamRepository SemesterExamRepository { get; private set; }
 
 
 

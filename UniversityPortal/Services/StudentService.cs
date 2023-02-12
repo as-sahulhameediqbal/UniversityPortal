@@ -42,6 +42,21 @@ namespace UniversityPortal.Services
             return student;
         }
 
+        public async Task<Guid> GetUniversityId()
+        {
+            var result = await UnitOfWork.StudentRepository.FindAsync(x => x.IsActive
+                                                                         && x.Email == CurrentUserService.Email);
+
+            return result.UniversityId;
+        }
+        public async Task<Guid> GetStudentId()
+        {
+            var result = await UnitOfWork.StudentRepository.FindAsync(x => x.IsActive
+                                                                         && x.Email == CurrentUserService.Email);
+
+            return result.Id;
+        }
+
         public async Task<AppResponse> Save(StudentViewModel model)
         {
             var result = await IsStudentExists(model);

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<UniversityPortal.Models.StudentSemesterViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SemesterYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamPublishedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SemesterYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExamPublishedDate)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "View","StudentExam", new { /* id=item.PrimaryKey */ }) 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

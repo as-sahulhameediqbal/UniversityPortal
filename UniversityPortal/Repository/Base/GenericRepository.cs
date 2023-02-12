@@ -29,7 +29,6 @@ namespace UniversityPortal.Repository.Base
         {
             return await _dbContext.Set<T>().Where(expression).ToListAsync();
         }
-
         public async Task<T> FindAsync(Expression<Func<T, bool>> expression)
         {
             return await _dbContext.Set<T>().FirstOrDefaultAsync(expression);

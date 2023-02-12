@@ -2,8 +2,7 @@
 
 namespace UniversityPortal.Interfaces.Repository
 {
-    public interface IStudentExamRepository : IGenericRepository<StudentExam>
+    public interface ISemesterExamRepository : IGenericRepository<SemesterExam>
     {
-
     }
 }

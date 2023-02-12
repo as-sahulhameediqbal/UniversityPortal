@@ -19,17 +19,17 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
             </li>
-        }
-        else if (@User.IsInRole("Accountant"))
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
-            </li>
-        }
+        }       
         else if (@User.IsInRole("COE"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Index">Semester Exam</a>
+            </li>
+        }
+         else if (@User.IsInRole("Student"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="StudentSemester" asp-action="Index">Semester</a>
             </li>
         }
     }

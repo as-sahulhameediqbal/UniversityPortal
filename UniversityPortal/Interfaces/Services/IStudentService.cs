@@ -8,10 +8,7 @@ namespace UniversityPortal.Interfaces.Services
         Task<StudentViewModel> Get(Guid id);
         Task<IEnumerable<StudentViewModel>> GetAll();
         Task<AppResponse> Save(StudentViewModel model);
-
-
-
-        //Task<AppResponse> AddFee(FeesViewModel model);
-        //Task<AppResponse> AddMarks(MarksViewModel marksViewModel);
+        Task<Guid> GetUniversityId();
+        Task<Guid> GetStudentId();
     }
 }

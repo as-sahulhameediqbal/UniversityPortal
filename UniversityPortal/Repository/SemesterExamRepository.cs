@@ -5,10 +5,10 @@ using UniversityPortal.Repository.Base;
 
 namespace UniversityPortal.Repository
 {
-    public class StudentExamRepository : GenericRepository<StudentExam>, IStudentExamRepository
+    public class SemesterExamRepository : GenericRepository<SemesterExam>, ISemesterExamRepository
     {
-        public StudentExamRepository(ApplicationDbContext dbContext) : base(dbContext)
+        public SemesterExamRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-        }       
+        }
     }
 }

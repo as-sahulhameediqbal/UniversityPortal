@@ -83,55 +83,5 @@ namespace UniversityPortal.Controllers
             }
             return RedirectToAction("Index", "Student");
         }
-
-
-        //public async Task<IActionResult> PaymentForSemesterFees(FeesViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var result = await _studentService.AddFee(model);
-        //    if (!result.Success)
-        //    {
-        //        TempData["Error"] = result.Message;
-        //        return View(model);
-        //    }
-        //    return RedirectToAction("Index", "Student");
-        //}
-
-        //public async Task<IActionResult> AddMarks(MarksViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var result = await _studentService.AddMarks(model);
-        //    if (!result.Success)
-        //    {
-        //        TempData["Error"] = result.Message;
-        //        return View(model);
-        //    }
-        //    return RedirectToAction("Index", "Student");
-        //}
-
-        //public ActionResult SemesterMarks(MarksViewModel marksViewModel) // partial view of AddMarks
-        //{
-        //    if (Request.IsAjaxRequest())
-        //    {
-        //        ContactModel contact = new ContactModel();
-        //        contact.ContactName = customer.ContactMode.ContactName;
-        //        contact.ContactNo = customer.ContactMode.ContactNo;
-
-        //        if (customer.Contacts == null)
-        //        {
-        //            customer.Contacts = new List<ContactModel>();
-        //        }
-
-        //        customer.Contacts.Add(contact);
-
-        //        return PartialView("_Contact", customer);
-        //    }
-        //}
     }
 }

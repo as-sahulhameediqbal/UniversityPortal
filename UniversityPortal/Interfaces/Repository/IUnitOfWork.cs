@@ -8,5 +8,6 @@
         public IStudentRepository StudentRepository { get; }
         public IPaperRepository PaperRepository { get; }
         public IStudentExamRepository StudentExamRepository { get; }
+        public ISemesterExamRepository SemesterExamRepository { get; }
     }
 }
