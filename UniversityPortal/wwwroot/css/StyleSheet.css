@@ -103,3 +103,12 @@ header nav.navbar a.navbar-brand img {
   width: 250px;
   padding: 5px 0;
 }
+header .navbar-nav.account-info a {
+  color: #fff;
+}
+header .navbar-nav.account-info .nav-item button {
+  color: #fff;
+}
+header .navbar-nav.account-info .nav-item button:focus {
+  box-shadow: none;
+}
