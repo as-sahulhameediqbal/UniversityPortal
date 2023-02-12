@@ -1,25 +1,28 @@
-﻿@model IEnumerable<UniversityPortal.Models.SemesterExamModel>
+﻿@model IEnumerable<UniversityPortal.Models.StudentExamModel>
 
 
-<table class="table table-hover table-responsive">
+<table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Semester)
+                @Html.DisplayNameFor(model => model.Subject)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BaseSemester)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Subject)
+                @Html.DisplayNameFor(model => model.Marks)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SemesterYear)
+                @Html.DisplayNameFor(model => model.IsPass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Attempt)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ExamDate)
             </th>
-            <th></th>
+
         </tr>
     </thead>
     <tbody>
@@ -27,20 +30,24 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Semester)
+                    @Html.DisplayFor(modelItem => item.Subject)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BaseSemester)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
+                    @Html.DisplayFor(modelItem => item.Marks)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SemesterYear)
+                    @Html.DisplayFor(modelItem => item.IsPass)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attempt)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ExamDate)
-                </td>                
+                </td>
+
             </tr>
         }
     </tbody>
