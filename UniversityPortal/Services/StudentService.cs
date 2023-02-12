@@ -7,11 +7,19 @@ using UniversityPortal.Services.Base;
 using UniversityPortal.Models;
 using UniversityPortal.Data;
 using UniversityPortal.Common;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace UniversityPortal.Services
 {
     public class StudentService : BaseService, IStudentService
     {
+        public List<SelectListItem> Genders = new()
+            {
+                new SelectListItem { Value = "Male", Text = "Male" },
+                new SelectListItem { Value = "Female", Text = "Female" },
+                new SelectListItem { Value = "Transgender ", Text = "Transgender " }
+            };
+
         private readonly IUserService _userService;
         private readonly IUniversityStaffService _universityStaffService;
         public StudentService(IUnitOfWork unitOfWork,
@@ -25,6 +33,10 @@ namespace UniversityPortal.Services
             _universityStaffService = universityStaffService;
         }
 
+        public async Task<List<SelectListItem>> GetAllGender()
+        {
+            return Genders;
+        }
 
         public async Task<StudentViewModel> Get(Guid id)
         {

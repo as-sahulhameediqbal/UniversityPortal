@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections;
 using UniversityPortal.Common;
 using UniversityPortal.Data;
 using UniversityPortal.Entity;
@@ -13,6 +15,15 @@ namespace UniversityPortal.Services
     public class UniversityStaffService : BaseService, IUniversityStaffService
     {
         private readonly IUserService _userService;
+
+        public List<SelectListItem> Roles = new()
+            {
+                new SelectListItem { Value = "Faculty", Text = "Faculty" },
+                new SelectListItem { Value = "Accountant", Text = "Accountant" },
+                new SelectListItem { Value = "COE", Text = "COE" }
+            };
+
+
         public UniversityStaffService(IUnitOfWork unitOfWork,
                                       IMapper mapper,
                                       IDateTimeProvider dateTimeProvider,
@@ -20,6 +31,11 @@ namespace UniversityPortal.Services
                                       IUserService userService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
             _userService = userService;
+        }
+
+        public async Task<List<SelectListItem>> GetAllRoles()
+        {
+            return Roles;
         }
 
         public async Task<UniversityStaffViewModel> Get(Guid id)
