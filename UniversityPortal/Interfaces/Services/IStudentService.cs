@@ -11,6 +11,8 @@ namespace UniversityPortal.Interfaces.Services
         Task<AppResponse> Save(StudentViewModel model);
         Task<Guid> GetUniversityId();
         Task<Guid> GetStudentId();
+        Task<string> GetStudentName();
+
         Task<List<SelectListItem>> GetAllGender();
     }
 }
