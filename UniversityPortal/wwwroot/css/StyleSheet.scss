@@ -105,4 +105,19 @@ header {
             }
         }
     }
+
+    .navbar-nav.account-info {
+        a {
+            color: #fff;
+        }
+
+        .nav-item {
+            button {
+                color: #fff;
+                &:focus {
+                    box-shadow:none;
+                }
+            }
+        }
+    }
 }
