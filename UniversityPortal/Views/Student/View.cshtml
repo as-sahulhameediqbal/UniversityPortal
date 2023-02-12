@@ -96,7 +96,7 @@
 
     @if (Model.IsPaid == false)
     {
-        <a asp-action="Index" asp-controller="Payment" asp-route-Id="@Model.Id">Pay Tution Fees</a>
-        @*@Html.ActionLink("Pay Tution Fees", "", "Payment", new {  id = Model.Id  })*@
+        @*<a asp-action="Index" asp-controller="Payment" asp-route-Id="@Model.Id">Pay Tution Fees</a>*@
+    | @Html.ActionLink("Pay Tution Fees", "Index", "Payment", new { type = "TutionFees" });
     }
 </div>

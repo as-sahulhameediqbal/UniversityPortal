@@ -62,7 +62,7 @@
 <p>
     @if (!Model.IsPaid)
     {
-        <a asp-action="Payment" asp-route-id="@Model.StudentId">Pay</a>
+        <a asp-action="Index" asp-controller="Payment" asp-page="StudExam" asp-route-id="@Model.StudentId">Pay</a>
     }
 </p>
 
@@ -73,4 +73,8 @@
         <h1>Arrears</h1>
         <partial name="_StudentExam" model=Model.ArrearPapers />
     }
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="SemesterExam">Back to List</a>
 </div>

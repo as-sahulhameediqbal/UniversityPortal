@@ -19,13 +19,12 @@ namespace UniversityPortal.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            //var response = await _studentService.GetStudentProfile();
-            
-            return View();
+        public async Task<IActionResult> Index(string type)
+        {            
+            PaymentViewModel model =new PaymentViewModel();
+            model.FeesType = type;
+            return View(model);
         }
-        
 
         [HttpPost]
         public async Task<IActionResult> AddPayment(PaymentViewModel model)
