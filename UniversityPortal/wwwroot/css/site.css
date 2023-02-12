@@ -83,3 +83,9 @@ h1 {
     left: calc(50% - 50px);
     border: 8px solid #5120bc;
 }
+
+/* Layout Page */
+header {
+    background: linear-gradient(90deg, rgba(81,32,188,1) 0%, rgba(255,95,175,1) 100%);
+    color: #fff;
+}
