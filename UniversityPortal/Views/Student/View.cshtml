@@ -91,6 +91,9 @@
     </dl>
 </div>
 <div>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) |
+    <a asp-action="Index">Back to List</a>
+
     @if (Model.IsPaid == false)
     {
         <a asp-action="Index" asp-controller="Payment" asp-route-Id="@Model.Id">Pay Tution Fees</a>
