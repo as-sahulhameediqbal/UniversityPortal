@@ -2,58 +2,58 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav flex-grow-1">
+<ul class="navbar-nav menu-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         if (@User.IsInRole("PortalAdmin"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="University" asp-action="Index">University</a>
+                <a class="nav-link" asp-area="" asp-controller="University" asp-action="Index">University</a>
             </li>
         }
         else if (@User.IsInRole("Admin"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="UniversityStaff" asp-action="Index">Staff</a>
+                <a class="nav-link" asp-area="" asp-controller="UniversityStaff" asp-action="Index">Staff</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
+                <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
             </li>
         }
         else if (@User.IsInRole("COE"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Index">Semester Exam</a>
+                <a class="nav-link" asp-area="" asp-controller="SemesterExam" asp-action="Index">Semester Exam</a>
             </li>
         }
         else if (@User.IsInRole("Faculty"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Semester Marks</a>
+                <a class="nav-link" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Semester Marks</a>
             </li>
         }
         else if (@User.IsInRole("Accountant"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Students</a>
+                <a class="nav-link" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Students</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Student Certificate</a>
+                <a class="nav-link" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Student Certificate</a>
             </li>
         }
         else if (@User.IsInRole("Student"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="StudentSemester" asp-action="Index">Semester</a>
+                <a class="nav-link" asp-area="" asp-controller="StudentSemester" asp-action="Index">Semester</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="ViewProfile">Profile</a>
+                <a class="nav-link" asp-area="" asp-controller="Student" asp-action="ViewProfile">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="StudentSemester" asp-action="Result">Result</a>
+                <a class="nav-link" asp-area="" asp-controller="StudentSemester" asp-action="Result">Result</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Certificate</a>
+                <a class="nav-link" asp-area="" asp-controller="" asp-action="Index">Certificate</a>
             </li>
         }
     }
@@ -74,7 +74,7 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
         </li>
     }
 </ul>
