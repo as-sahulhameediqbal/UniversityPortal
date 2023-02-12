@@ -114,9 +114,23 @@ header {
         .nav-item {
             button {
                 color: #fff;
+
                 &:focus {
-                    box-shadow:none;
+                    box-shadow: none;
                 }
+            }
+        }
+    }
+
+    ul.navbar-nav.menu-nav {
+        a.nav-link {
+            color: #fff;
+            margin-left: 6px;
+            background: rgb(255 255 255 / 15%);
+
+            &:hover {
+                background: #fff;
+                color: #5120bc;
             }
         }
     }

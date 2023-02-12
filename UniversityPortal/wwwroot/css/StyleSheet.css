@@ -112,3 +112,12 @@ header .navbar-nav.account-info .nav-item button {
 header .navbar-nav.account-info .nav-item button:focus {
   box-shadow: none;
 }
+header ul.navbar-nav.menu-nav a.nav-link {
+  color: #fff;
+  margin-left: 6px;
+  background: rgba(255, 255, 255, 0.15);
+}
+header ul.navbar-nav.menu-nav a.nav-link:hover {
+  background: #fff;
+  color: #5120bc;
+}
