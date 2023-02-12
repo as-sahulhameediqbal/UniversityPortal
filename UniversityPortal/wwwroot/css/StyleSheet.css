@@ -92,3 +92,14 @@ header {
   background: linear-gradient(90deg, rgb(81, 32, 188) 0%, rgb(255, 95, 175) 100%);
   color: #fff;
 }
+header nav.navbar {
+  padding: 0;
+}
+header nav.navbar a.navbar-brand {
+  background: #fff;
+  padding: 0 10px;
+}
+header nav.navbar a.navbar-brand img {
+  width: 250px;
+  padding: 5px 0;
+}
