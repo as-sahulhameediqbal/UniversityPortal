@@ -7,7 +7,7 @@ namespace UniversityPortal.Models
         public string UniversityName { get; set; }
         public string Name { get; set; }
         public string ClassType { get; set; } // first second
-        public int DegreeName { get; set; }
-        public int Department { get; set; }
+        public string DegreeName { get; set; }
+        public string Department { get; set; }
     }
 }

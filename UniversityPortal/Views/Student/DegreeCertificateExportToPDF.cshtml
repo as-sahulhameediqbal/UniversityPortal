@@ -1,6 +1,5 @@
 ﻿@using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
-@using NextUs.Common
 @model UniversityPortal.Models.CertificateViewModel
 @{
     Layout = "_ExportToPDFLayout";
@@ -108,7 +107,7 @@
             <div class="c-name">GRADUATION CERTIFICATE</div>
         </div>
         <div class="p-text">
-            The Syndicate of the @Model.UniversityName University hereby makes known that <span> @Model.Name</span> has been admitted to the <span>@Model.DegreeName</span> in <span>@Model.Deparment</span> under the Faculty of @Model.Deparment, having completed the prescribed programme of study and same, and has been placed in <span>@Model.ClassType</span> at the Examination held in <span>APRIL 2023</span>.
+            The Syndicate of the @Model.UniversityName University hereby makes known that <span> @Model.Name</span> has been admitted to the <span>@Model.DegreeName</span> in <span>@Model.Department</span> under the Faculty of @Model.Department, having completed the prescribed programme of study and same, and has been placed in <span>@Model.ClassType</span> at the Examination held in <span>APRIL 2023</span>.
         </div>
         <div class="seal">
             <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="175.9" height="173.02" viewBox="0 0 175.9 173.02">
@@ -245,56 +244,3 @@
     </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="page">
-    <div class="header export-header">
-        <div class="header-image">            
-            <img class="p-t-1" src="~/assets/img/nextusLogo.png">
-        </div>
-        <div class="header-date">Generated Date : @Model.PricingRequestModel.PDFPrintDateTime (PST)</div>
-    </div>
-    <div class="data export-body">
-        <div id="price-loan">
-            <table class="pdf-table-noborder">
-                <tbody>
-                    <tr>
-                       
-                        <td class="export-values-l export-table-header">Data Input</td>
-                        <td class="export-table-header-pricing">Pricing Output</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="pdf-table">
-                <tbody>
-                    <tr class="export-gray">
-                        <td class="text-blue-primary f12">Degree Certificate</td>
-                        <td class="export-text-color"><b>@Model.CertificateViewModel.Name</b></td>
-                        <td class="export-values-l export-text-color">@Model.CertificateViewModel.ClassType</td>
-                        <td class="export-values-l export-text-color">CertificateViewModel.DegreeName</td>
-                        <td class="export-values-l export-text-color">CertificateViewModel.Department</td>
-                    </tr>
-            </tbody>
-        </table>
-    </div>
-    </div>
-</div>

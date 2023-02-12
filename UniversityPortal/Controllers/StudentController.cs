@@ -95,7 +95,6 @@ namespace UniversityPortal.Controllers
         [HttpPost]
         public IActionResult DegreeCertificateExportToPDF(CertificateViewModel certificateViewModel)
         {
-            CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel.Name = "Kirubakaran";
             certificateViewModel.ClassType = "FIRST CLASS WITH Distinction";
             certificateViewModel.DegreeName = "MCA";
