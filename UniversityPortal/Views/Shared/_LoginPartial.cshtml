@@ -29,7 +29,7 @@
         else if (@User.IsInRole("Faculty"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Semester Marks</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterMark" asp-action="Index">Semester Marks</a>
             </li>
         }
         else if (@User.IsInRole("Accountant"))

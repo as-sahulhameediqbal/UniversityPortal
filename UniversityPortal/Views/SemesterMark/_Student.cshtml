@@ -1,0 +1,44 @@
+﻿@model IEnumerable<UniversityPortal.Models.StudentModel>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RollNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Program)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RollNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Program)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "View", new {  id=item.StudentId,sem= item.Semester, year=item.SemesterYear })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

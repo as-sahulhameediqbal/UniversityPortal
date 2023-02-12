@@ -62,20 +62,6 @@ namespace UniversityPortal.Services
                              .ThenByDescending(x => x.Semester)
                              .ToList();
 
-
-            //var exams = semesterExam
-            //                .Select(x => new StudentSemesterViewModel
-            //                {
-            //                    SemesterYear = x.SemesterYear,
-            //                    Semester = x.Semester,
-            //                    ExamPublishedDate = x.PublishDate
-            //                })
-            //                .DistinctBy(x => x.SemesterYear + "-" + x.Semester)
-            //                .OrderByDescending(x => x.SemesterYear)
-            //                .ThenByDescending(x => x.Semester)
-            //                .ToList();
-
-
             return exams.AsEnumerable();
         }
 

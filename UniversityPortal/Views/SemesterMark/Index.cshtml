@@ -1,10 +1,13 @@
-﻿@model IEnumerable<UniversityPortal.Models.StudentSemesterViewModel>
+﻿@model IEnumerable<UniversityPortal.Models.SemesterViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<table class="table table-hover table-responsive">
+<h1>Index</h1>
+
+
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -14,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Semester)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExamPublishedDate)
+                @Html.DisplayNameFor(model => model.ResultDate)
             </th>
             <th></th>
         </tr>
@@ -30,10 +33,13 @@
                     @Html.DisplayFor(modelItem => item.Semester)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExamPublishedDate)
+                    @if (item.IsResult)
+                    {
+                        @Html.DisplayFor(modelItem => item.ResultDate)
+                    }
                 </td>
                 <td>
-                    @Html.ActionLink("View", "Index","StudentExam", new { sem=item.Semester,year = item.SemesterYear })
+                    @Html.ActionLink("View", "View", new {  sem=item.Semester,year = item.SemesterYear  })
                 </td>
             </tr>
         }

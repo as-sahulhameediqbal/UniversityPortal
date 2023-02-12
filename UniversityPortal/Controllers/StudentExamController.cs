@@ -17,9 +17,9 @@ namespace UniversityPortal.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Index(int sum, int year)
+        public async Task<IActionResult> Index(int sem, int year)
         {
-            var response = await _studentExamService.GetStudentExam(sum, year);
+            var response = await _studentExamService.GetStudentExam(sem, year);
             return View(response);
         }
     }

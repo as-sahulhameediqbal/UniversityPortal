@@ -24,6 +24,7 @@ namespace UniversityPortal.Common
             service.AddTransient<IStudentExamService, StudentExamService>();
             service.AddTransient<ISemesterExamService, SemesterExamService>();
             service.AddTransient<IPaymentService, PaymentService>();
+            service.AddTransient<ISemesterMarkService, SemesterMarkService>();
 
             service.AddTransient<IUnitOfWork, UnitOfWork>();
             return service;
