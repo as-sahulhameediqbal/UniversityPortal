@@ -24,7 +24,7 @@ namespace UniversityPortal.Services
         }
 
 
-        public async Task<IEnumerable<StudentSemesterViewModel>> GetAllStudentSemester()
+        public async Task<IEnumerable<StudentSemesterViewModel>> GetAllStudentSemester(bool isResult = false)
         {
             var universityId = await _studentService.GetUniversityId();
             var studentId = await _studentService.GetStudentId();
@@ -36,20 +36,45 @@ namespace UniversityPortal.Services
                 return Enumerable.Empty<StudentSemesterViewModel>();
             }
 
-            var semesterExam = await UnitOfWork.SemesterExamRepository.FindAll(x => x.UniversityId == universityId
-                                                                                    && x.IsPublish == true);
+            if (isResult)
+            {
+                studentExam = studentExam.Where(x => x.IsResult);
+            }
 
-            var exams = semesterExam
-                            .Select(x => new StudentSemesterViewModel
-                            {
-                                SemesterYear = x.SemesterYear,
-                                Semester = x.Semester,
-                                ExamPublishedDate = x.PublishDate
-                            })
-                            .DistinctBy(x => x.SemesterYear + "-" + x.Semester)
-                            .OrderByDescending(x => x.SemesterYear)
-                            .ThenByDescending(x => x.Semester)
-                            .ToList();
+            var semesterExam = await UnitOfWork.SemesterExamRepository.FindAll(x => x.UniversityId == universityId
+                                                                                   && x.IsPublish == true);
+
+            var list = new List<StudentSemesterViewModel>();
+            foreach (var student in studentExam)
+            {
+                var sem = semesterExam.FirstOrDefault(x => x.Id == student.SemesterExamId);
+                var studentSem = new StudentSemesterViewModel()
+                {
+                    Semester = sem.Semester,
+                    SemesterYear = sem.SemesterYear,
+                    ExamPublishedDate = sem.PublishDate
+                };
+                list.Add(studentSem);
+            }
+
+            var exams  = list.DistinctBy(x => x.SemesterYear + "-" + x.Semester)
+                             .OrderByDescending(x => x.SemesterYear)
+                             .ThenByDescending(x => x.Semester)
+                             .ToList();
+
+
+            //var exams = semesterExam
+            //                .Select(x => new StudentSemesterViewModel
+            //                {
+            //                    SemesterYear = x.SemesterYear,
+            //                    Semester = x.Semester,
+            //                    ExamPublishedDate = x.PublishDate
+            //                })
+            //                .DistinctBy(x => x.SemesterYear + "-" + x.Semester)
+            //                .OrderByDescending(x => x.SemesterYear)
+            //                .ThenByDescending(x => x.Semester)
+            //                .ToList();
+
 
             return exams.AsEnumerable();
         }

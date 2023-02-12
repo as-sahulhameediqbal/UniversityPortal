@@ -31,18 +31,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PublishDate)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsPaid)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsPaid)
-        </dd>
+
         @if (Model.IsResult)
         {
             <dt class="col-sm-2">
@@ -50,6 +39,21 @@
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.ResultDate)
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsPaid)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsPaid)
             </dd>
         }
     </dl>

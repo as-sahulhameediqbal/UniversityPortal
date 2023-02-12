@@ -19,21 +19,38 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
             </li>
-        }       
+        }
         else if (@User.IsInRole("COE"))
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Index">Semester Exam</a>
             </li>
         }
-         else if (@User.IsInRole("Student"))
+        else if (@User.IsInRole("Faculty"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Semester Marks</a>
+            </li>
+        }
+        else if (@User.IsInRole("Accountant"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Student Certificate</a>
+            </li>
+        }
+        else if (@User.IsInRole("Student"))
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="StudentSemester" asp-action="Index">Semester</a>
             </li>
             <li class="nav-item">
-                @*@Html.ActionLink("Profile", "View","Student", new {  id= "E0CF9EFE-E91F-42D3-987A-679C4DE35E27"  })*@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="ViewProfile">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="StudentSemester" asp-action="Result">Result</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Certificate</a>
