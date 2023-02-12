@@ -39,7 +39,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
+                @*<select id="Role" class="single-select" asp-for="Role" asp-items="@(new SelectList(Model.Roles, "Value", "Text"))"></select>*@
+                <select asp-for="Role" size="1" asp-items="Model.Roles" class="form-select"></select>
+                <input type="hidden" asp-for="Role" />
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -62,6 +64,10 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    $(function () { $(".single-select").removeAttr("multiple"); });
+</script>
 
 @section Scripts {
     @{

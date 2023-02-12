@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
+using System.Data;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
+using UniversityPortal.Services;
 
 namespace UniversityPortal.Controllers
 {
@@ -28,9 +31,11 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var genders = await _studentService.GetAllGender();
             var response = new StudentViewModel();
             response.IsActive = true;
             response.JoiningDate = DateTimeOffset.Now;
+            response.Genders = genders;
             return View(response);
         }
 
@@ -62,7 +67,9 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            var genders = await _studentService.GetAllGender();
             var response = await _studentService.Get(id);
+            response.Genders = genders;
             return View(response);
         }
 

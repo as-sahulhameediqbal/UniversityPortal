@@ -1,4 +1,5 @@
-﻿using UniversityPortal.Common;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using UniversityPortal.Common;
 using UniversityPortal.Models;
 
 namespace UniversityPortal.Interfaces.Services
@@ -10,5 +11,6 @@ namespace UniversityPortal.Interfaces.Services
         Task<AppResponse> Save(StudentViewModel model);
         Task<Guid> GetUniversityId();
         Task<Guid> GetStudentId();
+        Task<List<SelectListItem>> GetAllGender();
     }
 }

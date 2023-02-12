@@ -28,8 +28,11 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var response = new UniversityStaffViewModel();
+            var roles = await _universityStaffService.GetAllRoles();
+            var response = new UniversityStaffViewModel();            
+            
             response.IsActive = true;
+            response.Roles= roles;
             return View(response);
         }
 
@@ -61,7 +64,9 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            var roles = await _universityStaffService.GetAllRoles();
             var response = await _universityStaffService.Get(id);
+            response.Roles = roles;
             return View(response);
         }
 
