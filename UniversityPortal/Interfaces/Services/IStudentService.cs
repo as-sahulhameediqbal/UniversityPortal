@@ -12,5 +12,6 @@ namespace UniversityPortal.Interfaces.Services
         Task<Guid> GetUniversityId();
         Task<Guid> GetStudentId();
         Task<List<SelectListItem>> GetAllGender();
+        Task<StudentViewModel> GetStudentProfile();
     }
 }

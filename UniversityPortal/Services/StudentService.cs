@@ -38,6 +38,7 @@ namespace UniversityPortal.Services
             return Genders;
         }
 
+
         public async Task<StudentViewModel> Get(Guid id)
         {
             var result = await UnitOfWork.StudentRepository.Get(id);
@@ -61,6 +62,14 @@ namespace UniversityPortal.Services
 
             return result.UniversityId;
         }
+
+        public async Task<StudentViewModel> GetStudentProfile()
+        {
+            var id = await GetStudentId();
+            var response = await Get(id);
+            return response;
+        }
+
         public async Task<Guid> GetStudentId()
         {
             var result = await UnitOfWork.StudentRepository.FindAsync(x => x.IsActive

@@ -116,5 +116,12 @@ namespace UniversityPortal.Controllers
             }
             return NoContent();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewProfile()
+        {
+            var response = await _studentService.GetStudentProfile();
+            return View("View", response);
+        }
     }
 }

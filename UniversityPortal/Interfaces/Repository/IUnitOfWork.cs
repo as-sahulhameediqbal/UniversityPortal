@@ -1,4 +1,6 @@
-﻿namespace UniversityPortal.Interfaces.Repository
+﻿using UniversityPortal.Repository;
+
+namespace UniversityPortal.Interfaces.Repository
 {
     public interface IUnitOfWork
     {
@@ -9,5 +11,6 @@
         public IPaperRepository PaperRepository { get; }
         public IStudentExamRepository StudentExamRepository { get; }
         public ISemesterExamRepository SemesterExamRepository { get; }
+        public IPaymentRepository PaymentRepository { get; }
     }
 }

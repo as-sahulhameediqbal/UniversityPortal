@@ -16,7 +16,7 @@ namespace UniversityPortal.Repository.Base
             PaperRepository = new PaperRepository(dbContext);
             StudentExamRepository = new StudentExamRepository(dbContext);
             SemesterExamRepository = new SemesterExamRepository(dbContext);
-
+            PaymentRepository = new PaymentRepository(dbContext);
         }
 
         public IUniversityRepository UniversityRepository { get; private set; }
@@ -25,7 +25,7 @@ namespace UniversityPortal.Repository.Base
         public IPaperRepository PaperRepository { get; private set; }
         public IStudentExamRepository StudentExamRepository { get; private set; }
         public ISemesterExamRepository SemesterExamRepository { get; private set; }
-
+        public IPaymentRepository PaymentRepository { get; private set; }
 
 
         public async Task<int> Save()

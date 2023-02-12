@@ -77,6 +77,12 @@
             @Html.DisplayFor(model => model.TutionFee)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsPaid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsPaid)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
         <dd class="col-sm-10">
@@ -85,6 +91,9 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) |
-    <a asp-action="Index">Back to List</a>
+    @if (Model.IsPaid == false)
+    {
+        <a asp-action="Index" asp-controller="Payment" asp-route-Id="@Model.Id">Pay Tution Fees</a>
+        @*@Html.ActionLink("Pay Tution Fees", "", "Payment", new {  id = Model.Id  })*@
+    }
 </div>
