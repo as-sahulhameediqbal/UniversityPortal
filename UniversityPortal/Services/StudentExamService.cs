@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;
@@ -84,6 +85,7 @@ namespace UniversityPortal.Services
                 {
                     var examModel = new StudentExamModel()
                     {
+                        StudentExamId = exam.Id,
                         Subject = paper.Name,
                         Marks = exam.Marks,
                         IsPass = exam.IsPass,

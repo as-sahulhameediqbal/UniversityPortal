@@ -27,7 +27,8 @@ namespace UniversityPortal.Models
     }
 
     public class StudentExamModel
-    {    
+    {
+        public Guid StudentExamId { get; set; }
         public string Subject { get; set; }            
         public decimal Marks { get; set; }
         public bool IsPass { get; set; }
