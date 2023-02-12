@@ -6,6 +6,7 @@ using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
 using UniversityPortal.Services;
+using Rotativa.AspNetCore;
 
 namespace UniversityPortal.Controllers
 {
@@ -89,6 +90,32 @@ namespace UniversityPortal.Controllers
                 return View(model);
             }
             return RedirectToAction("Index", "Student");
+        }
+
+        [HttpPost]
+        public IActionResult DegreeCertificateExportToPDF(CertificateViewModel certificateViewModel)
+        {
+            CertificateViewModel certificateViewModel = new CertificateViewModel();
+            certificateViewModel.Name = "Kirubakaran";
+            certificateViewModel.ClassType = "FIRST CLASS WITH Distinction";
+            certificateViewModel.DegreeName = "MCA";
+            certificateViewModel.Department = "Computer Applications";
+            certificateViewModel.UniversityName = "Bharathiar";
+
+            // for export "Rotativa" used (wkhtmltopdf.exe)
+            if (certificateViewModel != null)
+            {
+                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                var report = new ViewAsPdf("DegreeCertificateExportToPDF", certificateViewModel)
+                {
+                    PageMargins = { Left = 10, Bottom = 5, Right = 10, Top = 5 },
+                    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                    PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                };
+
+                return report;
+            }
+            return NoContent();
         }
     }
 }
