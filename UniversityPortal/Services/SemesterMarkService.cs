@@ -11,13 +11,16 @@ namespace UniversityPortal.Services
     public class SemesterMarkService : BaseService, ISemesterMarkService
     {
         private readonly IUniversityStaffService _universityStaffService;
+        private readonly IStudentExamService _studentExamService;
         public SemesterMarkService(IUnitOfWork unitOfWork,
                                    IMapper mapper,
                                    IDateTimeProvider dateTimeProvider,
                                    ICurrentUserService currentUserService,
-                                   IUniversityStaffService universityStaffService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
+                                   IUniversityStaffService universityStaffService,
+                                   IStudentExamService studentExamService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
             _universityStaffService = universityStaffService;
+            _studentExamService = studentExamService;
         }
 
         public async Task<IEnumerable<SemesterViewModel>> GetSemesterAll()
@@ -56,7 +59,7 @@ namespace UniversityPortal.Services
         }
 
 
-        public async Task<SemesterStudentViewModel> GetSemesterStudent(int sem, int year)
+        public async Task<SemesterStudentViewModel> GetSemesterStudentAll(int sem, int year)
         {
             var universityId = await _universityStaffService.GetUniversityId();
             var studentExams = await UnitOfWork.StudentExamRepository.FindAll(x => x.UniversityId == universityId);
@@ -78,7 +81,6 @@ namespace UniversityPortal.Services
             semesterStudent.Students = students
                                 .Select(x => new StudentModel
                                 {
-
                                     StudentId = x.Id,
                                     StudentName = x.Name,
                                     RollNumber = x.RollNumber,
@@ -105,6 +107,37 @@ namespace UniversityPortal.Services
             }
 
             return semesterStudent;
+        }
+
+        public async Task<StudentModel> GetSemesterStudent(Guid studentId, int sem, int year)
+        {
+            var universityId = await _universityStaffService.GetUniversityId();
+            var student = await UnitOfWork.StudentRepository.Get(studentId);
+            if (student == null)
+            {
+                return new StudentModel();
+            }
+
+            var studentModel = new StudentModel()
+            {
+                StudentId = student.Id,
+                StudentName = student.Name,
+                RollNumber = student.RollNumber,
+                Program = student.Program,
+                Department = student.Department,
+                Semester = sem,
+                SemesterYear = year
+            };
+
+            var studentExams = await _studentExamService.GetStudentSemesterExam(studentId, universityId, sem, year);
+
+            if (studentExams != null)
+            {
+                studentModel.CurrentPapers = studentExams.CurrentPapers;
+                studentModel.ArrearPapers = studentExams.ArrearPapers;
+            }
+
+            return studentModel;
         }
     }
 }

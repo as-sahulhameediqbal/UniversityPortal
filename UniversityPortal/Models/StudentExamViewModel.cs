@@ -6,8 +6,8 @@ namespace UniversityPortal.Models
     {
         public Guid StudentId { get; set; }
         public string StudentName { get; set; } = null!;
-        public IEnumerable<StudentExamModel> CurrentPapers { get; set; }
-        public IEnumerable<StudentExamModel> ArrearPapers { get; set; }
+        public IEnumerable<StudentExamModel> CurrentPapers { get; set; } = null!;
+        public IEnumerable<StudentExamModel> ArrearPapers { get; set; } = null!;
 
         public int Semester { get; set; }
         public int SemesterYear { get; set; }

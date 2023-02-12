@@ -28,6 +28,7 @@ namespace UniversityPortal.Models
         public string Program { get; set; } = null!;
         public string Department { get; set; } = null!;
 
-        public IEnumerable<StudentExamModel> StudentExams { get; set; } = null!;
+        public IEnumerable<StudentExamModel> CurrentPapers { get; set; } = null!;
+        public IEnumerable<StudentExamModel> ArrearPapers { get; set; } = null!;
     }
 }

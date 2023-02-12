@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 
@@ -25,15 +26,15 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> View(int sem, int year)
         {
-            var response = await _semesterMarkService.GetSemesterStudent(sem, year);
+            var response = await _semesterMarkService.GetSemesterStudentAll(sem, year);
             return View(response);
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Publish(Guid id, int sem, int year)
+        public async Task<IActionResult> Mark(Guid id, int sem, int year)
         {
-            var response = await _semesterMarkService.GetSemesterStudent(sem, year);
+            var response = await _semesterMarkService.GetSemesterStudent(id, sem, year);
             return View(response);
         }
     }

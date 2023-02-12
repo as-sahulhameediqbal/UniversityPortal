@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;
@@ -10,16 +9,13 @@ namespace UniversityPortal.Services
 {
     public class StudentExamService : BaseService, IStudentExamService
     {
-        private readonly IUniversityStaffService _universityStaffService;
         private readonly IStudentService _studentService;
         public StudentExamService(IUnitOfWork unitOfWork,
                                   IMapper mapper,
                                   IDateTimeProvider dateTimeProvider,
                                   ICurrentUserService currentUserService,
-                                  IUniversityStaffService universityStaffService,
                                   IStudentService studentService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
-            _universityStaffService = universityStaffService;
             _studentService = studentService;
         }
 
@@ -57,7 +53,7 @@ namespace UniversityPortal.Services
                 list.Add(studentSem);
             }
 
-            var exams  = list.DistinctBy(x => x.SemesterYear + "-" + x.Semester)
+            var exams = list.DistinctBy(x => x.SemesterYear + "-" + x.Semester)
                              .OrderByDescending(x => x.SemesterYear)
                              .ThenByDescending(x => x.Semester)
                              .ToList();
@@ -69,6 +65,13 @@ namespace UniversityPortal.Services
         {
             var universityId = await _studentService.GetUniversityId();
             var studentId = await _studentService.GetStudentId();
+            var semesterExams = await GetStudentSemesterExam(studentId, universityId, sem, year);
+            return semesterExams;
+        }
+
+        public async Task<StudentExamViewModel> GetStudentSemesterExam(Guid studentId, Guid universityId, int sem, int year)
+        {
+
             var studentExam = await UnitOfWork.StudentExamRepository.FindAll(x => x.UniversityId == universityId
                                                                                  && x.StudentId == studentId);
 
@@ -121,7 +124,7 @@ namespace UniversityPortal.Services
                 }
             }
             semesterExams.StudentId = studentId;
-            semesterExams.StudentName = await _studentService.GetStudentName();
+            semesterExams.StudentName = await _studentService.GetStudentName(studentId);
             semesterExams.CurrentPapers = currentPapers;
             semesterExams.ArrearPapers = arrearPapers;
             semesterExams.Amount = totalAmount;
@@ -129,7 +132,6 @@ namespace UniversityPortal.Services
             semesterExams.SemesterYear = year;
 
             return semesterExams;
-
         }
     }
 }
