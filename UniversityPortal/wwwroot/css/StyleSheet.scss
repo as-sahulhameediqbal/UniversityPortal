@@ -8,10 +8,6 @@
     }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 html {
     position: relative;
     min-height: 100%;
@@ -20,21 +16,69 @@ html {
 body {
     margin-bottom: 60px;
     background: #f8fbff;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* Common Style */
 a {
-    font-weight: 00;
+    font-weight: 500;
 }
 .form-group {
     margin-bottom: 10px;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #5120bc;
+.form-control:focus {
+    box-shadow: 0 0 4px rgb(81 32 188 / 25%);
     border-color: #5120bc;
 }
+
+.btn-primary {
+    background: linear-gradient(90deg, rgb(81, 32, 188) 0%, rgb(255, 95, 175) 100%);
+    color: #fff;
+    border-color: #5120bc;
+
+    &:hover {
+        background: #5120bc;
+    }
+
+    &:focus {
+        box-shadow: 0 0 4px rgb(81 32 188 / 25%);
+    }
+}
+.btn-primary:active:focus {
+    box-shadow: none;
+}
+table.table {
+    font-size: 14px;
+
+    thead {
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #5120bc;
+            color: #fff;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+    }
+
+    tbody {
+        tr:nth-child(even) {
+            background-color: rgb(81 32 188 / 3%);
+        }
+
+        tr:hover {
+            background-color: rgb(81 32 188 / 4%);
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+    }
+}
+
 /* Login Page */
 body.login-container {
     margin: 0;
@@ -42,53 +86,58 @@ body.login-container {
     background: url(/img/login-bg.jpg);
     background-size: cover;
     background-position: center;
-    font-family: sans-serif;
-}
 
-.loginbox {
-    width: 320px;
-    height: auto;
-    background: #fff;
-    color: #5120bc;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    box-sizing: border-box;
-    padding: 70px 30px 30px 30px;
-    border-radius: 5px;
-    box-shadow: 0px 0 15px rgb(1 41 112 / 50%);
-}
+    .loginbox {
+        width: 380px;
+        height: auto;
+        background: #fff;
+        color: #5120bc;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        box-sizing: border-box;
+        padding: 70px 30px 30px 30px;
+        border-radius: 5px;
+        box-shadow: 0px 0 15px rgb(1 41 112 / 50%);
+    }
 
-.loginbox h2 {
-    font-weight: bold;
-    text-align: center;
-    font-size: 22px;
-    color: #fff;
-    position: absolute;
-    top: -120px;
-    text-align: center;
-    left: calc(50% - 55px);
-    background: #ff5faf;
-    padding: 10px 20px;
-    border-radius: 25px;
-}
+    .loginbox h2 {
+        font-weight: bold;
+        text-align: center;
+        font-size: 22px;
+        color: #fff;
+        position: absolute;
+        top: -120px;
+        text-align: center;
+        left: calc(50% - 55px);
+        background: #ff5faf;
+        padding: 10px 20px;
+        border-radius: 25px;
+    }
 
-h1 {
-    font-weight: bold;
-    text-align: center;
-    font-size: 22px;
-}
+    h1 {
+        font-weight: bold;
+        text-align: center;
+        font-size: 22px;
+    }
 
-.Logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    position: absolute;
-    top: -50px;
-    background: #fff;
-    left: calc(50% - 50px);
-    border: 8px solid #5120bc;
+    .Logo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        top: -50px;
+        background: #fff;
+        left: calc(50% - 50px);
+        border: 8px solid #5120bc;
+    }
+
+    .Logo-name {
+        width: 100%;
+        padding: 0 20px 20px 20px;
+        height: auto;
+    }
 }
 
 /* Layout Page */
@@ -150,15 +199,38 @@ header {
         background: #fff;
         box-shadow: 0px 0 6px 5px rgb(209 209 209 / 32%);
 
+        h1 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #5120bc;
+        }
+
+        .head {
+            font-size: 38px;
+            font-weight: bold;
+            color: #5120bc;
+        }
+
+        .sub-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff5faf;
+        }
+
         p {
             margin-top: 15px;
             float: right;
+
             a {
                 background: linear-gradient(90deg, rgb(81, 32, 188) 0%, rgb(255, 95, 175) 100%);
                 color: #fff;
                 padding: 10px 15px;
                 border-radius: 4px;
                 text-decoration: none;
+
+                &:hover {
+                    background: #5120bc;
+                }
             }
         }
     }

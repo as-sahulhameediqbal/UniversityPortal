@@ -11,13 +11,16 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/StyleSheet.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/UniversityPortal.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body class="login-container">
 
     <div class="loginbox">
         <h2>LOGIN</h2>
         <img src="~/img/logo-icon.svg" class="Logo">
-        <h1>LinkMyUni</h1>
+        <img src="~/img/logo-name.svg" class="Logo-name">
         @if (TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger">

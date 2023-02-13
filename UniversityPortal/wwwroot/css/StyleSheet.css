@@ -7,10 +7,6 @@
     font-size: 16px;
   }
 }
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 html {
   position: relative;
   min-height: 100%;
@@ -19,21 +15,60 @@ html {
 body {
   margin-bottom: 60px;
   background: #f8fbff;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Common Style */
 a {
-  font-weight: 0;
+  font-weight: 500;
 }
 
 .form-group {
   margin-bottom: 10px;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #5120bc;
+.form-control:focus {
+  box-shadow: 0 0 4px rgba(81, 32, 188, 0.25);
   border-color: #5120bc;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, rgb(81, 32, 188) 0%, rgb(255, 95, 175) 100%);
+  color: #fff;
+  border-color: #5120bc;
+}
+.btn-primary:hover {
+  background: #5120bc;
+}
+.btn-primary:focus {
+  box-shadow: 0 0 4px rgba(81, 32, 188, 0.25);
+}
+
+.btn-primary:active:focus {
+  box-shadow: none;
+}
+
+table.table {
+  font-size: 14px;
+}
+table.table thead th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #5120bc;
+  color: #fff;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+table.table tbody tr:nth-child(even) {
+  background-color: rgba(81, 32, 188, 0.03);
+}
+table.table tbody tr:hover {
+  background-color: rgba(81, 32, 188, 0.04);
+}
+table.table tbody td {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
 /* Login Page */
@@ -43,11 +78,9 @@ body.login-container {
   background: url(/img/login-bg.jpg);
   background-size: cover;
   background-position: center;
-  font-family: sans-serif;
 }
-
-.loginbox {
-  width: 320px;
+body.login-container .loginbox {
+  width: 380px;
   height: auto;
   background: #fff;
   color: #5120bc;
@@ -60,8 +93,7 @@ body.login-container {
   border-radius: 5px;
   box-shadow: 0px 0 15px rgba(1, 41, 112, 0.5);
 }
-
-.loginbox h2 {
+body.login-container .loginbox h2 {
   font-weight: bold;
   text-align: center;
   font-size: 22px;
@@ -74,14 +106,12 @@ body.login-container {
   padding: 10px 20px;
   border-radius: 25px;
 }
-
-h1 {
+body.login-container h1 {
   font-weight: bold;
   text-align: center;
   font-size: 22px;
 }
-
-.Logo {
+body.login-container .Logo {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -90,6 +120,11 @@ h1 {
   background: #fff;
   left: calc(50% - 50px);
   border: 8px solid #5120bc;
+}
+body.login-container .Logo-name {
+  width: 100%;
+  padding: 0 20px 20px 20px;
+  height: auto;
 }
 
 /* Layout Page */
@@ -138,6 +173,21 @@ header ul.navbar-nav.menu-nav a.nav-link:hover {
   background: #fff;
   box-shadow: 0px 0 6px 5px rgba(209, 209, 209, 0.32);
 }
+.container-fluid.body-container main.main h1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #5120bc;
+}
+.container-fluid.body-container main.main .head {
+  font-size: 38px;
+  font-weight: bold;
+  color: #5120bc;
+}
+.container-fluid.body-container main.main .sub-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff5faf;
+}
 .container-fluid.body-container main.main p {
   margin-top: 15px;
   float: right;
@@ -148,4 +198,7 @@ header ul.navbar-nav.menu-nav a.nav-link:hover {
   padding: 10px 15px;
   border-radius: 4px;
   text-decoration: none;
+}
+.container-fluid.body-container main.main p a:hover {
+  background: #5120bc;
 }
