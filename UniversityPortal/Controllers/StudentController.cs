@@ -123,6 +123,34 @@ namespace UniversityPortal.Controllers
             return NoContent();
         }
 
+        public IActionResult HallTicketExportToPDF()
+        {
+            var studresponse = await _studentService.GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
+
+            CertificateViewModel certificateViewModel = new CertificateViewModel();
+            certificateViewModel = new CertificateViewModel();
+            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.DOB = "01/01/2003";
+            certificateViewModel.UniversityName = univresponse.Name;
+            certificateViewModel.RollNo = studresponse.RollNumber;
+            certificateViewModel.Gender = studresponse.Gender;
+
+            // for export "Rotativa" used (wkhtmltopdf.exe)
+            if (certificateViewModel != null)
+            {
+                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                var report = new ViewAsPdf("HallTicketExportToPDF", certificateViewModel)
+                {
+                    PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
+                    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                    PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                };
+
+                return report;
+            }
+            return NoContent();
+        }
         public IActionResult ProvisionalCertificateExportToPDF()
         {
             var studresponse = await _studentService.GetStudentProfile();
