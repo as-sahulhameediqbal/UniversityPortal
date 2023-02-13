@@ -46,6 +46,12 @@ namespace UniversityPortal.Services
             return result.Id;
         }
 
+        public async Task<string> GetName(Guid id)
+        {
+            var result = await UnitOfWork.UniversityRepository.Get(id);
+            return result.Name;
+        }
+
         public async Task<AppResponse> Save(UniversityViewModel model)
         {
             var result = await IsUniversityExists(model);

@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using UniversityPortal.Common;
+using UniversityPortal.Data;
 using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;
-using UniversityPortal.Services.Base;
 using UniversityPortal.Models;
-using UniversityPortal.Data;
-using UniversityPortal.Common;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc;
-using Rotativa.AspNetCore;
+using UniversityPortal.Services.Base;
 
 namespace UniversityPortal.Services
 {
@@ -208,6 +206,72 @@ namespace UniversityPortal.Services
             student.IsCompleted = true;
             student.ModifiedBy = CurrentUserService.UserId;
             student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+
+            UnitOfWork.StudentRepository.Update(student);
+            await UnitOfWork.Save();
+        }
+
+        public async Task<IEnumerable<StudentCertificateViewModel>> GetStudentCertificateAll()
+        {
+            var universityId = await _universityStaffService.GetUniversityId();
+            var students = await UnitOfWork.StudentRepository.GetAll();
+
+            var newstudents = students.Where(x => x.ExistingUniversityId == universityId);
+            if (newstudents == null || newstudents.Count() == 0)
+            {
+                return Enumerable.Empty<StudentCertificateViewModel>();
+            }
+
+            var list = new List<StudentCertificateViewModel>();
+
+            foreach (var newstudent in newstudents)
+            {
+                var oldStudent = students.FirstOrDefault(x => x.RollNumber == newstudent.ExistingRollNumber);
+                if (oldStudent != null)
+                {
+                    var student = new StudentCertificateViewModel()
+                    {
+                        Id = newstudent.Id,
+                        Name = oldStudent.Name,
+                        AdmissionNumber = oldStudent.AdmissionNumber,
+                        RollNumber = oldStudent.RollNumber,
+                        Email = oldStudent.Email,
+                        Program = oldStudent.Program,
+                        Department = oldStudent.Department,
+                        JoiningDate = oldStudent.JoiningDate,
+                        CompletedDate = oldStudent.CompletedDate,
+                        University = await _universityService.GetName(newstudent.UniversityId),
+                        IsVerifyCertifiate = newstudent.IsVerifyCertifiate,
+                        IsRejectCertifiate = newstudent.IsRejectCertifiate,
+                        VerifyDate = newstudent.VerifyDate,
+                    };
+                    list.Add(student);
+                }
+            }
+
+            var studentlist = list.OrderByDescending(x => x.CompletedDate)
+                             .ToList();
+
+            return studentlist.AsEnumerable();
+        }
+
+        public async Task VerifyStudentCertificate(Guid id, bool status)
+        {
+            var student = await UnitOfWork.StudentRepository.Get(id);
+            if (student == null)
+            {
+                return;
+            }
+
+            if (status)
+            {
+                student.IsVerifyCertifiate = true;
+            }
+            else
+            {
+                student.IsRejectCertifiate = true;
+            }
+            student.VerifyDate = DateTimeProvider.DateTimeOffsetNow;
 
             UnitOfWork.StudentRepository.Update(student);
             await UnitOfWork.Save();

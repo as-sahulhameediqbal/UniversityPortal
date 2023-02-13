@@ -54,5 +54,14 @@ namespace UniversityPortal.Models
         public bool IsPaid { get; set; } 
         public List<SelectListItem>? Genders { get; set; } = null;
         public string? Role { get; set; }
+
+        [Display(Name = "Previous University")]
+        public Guid ExistingUniversityId { get; set; }
+        public List<SelectListItem>? Universities { get; set; } = null;
+
+        [Display(Name = "Previous University RollNumber")]
+        public string ExistingRollNumber { get; set; } = null!;
+        public bool IsVerifyCertifiate { get; set; }
+        public bool IsRejectCertifiate { get; set; }
     }
 }

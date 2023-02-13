@@ -4,11 +4,10 @@
     ViewData["Title"] = "View";
 }
 
-<h1>View</h1>
+<div class="page-head"><i class="fa-solid fa-address-card"></i> Profile</div>
 <input type="hidden" value="@Model.Role" />
 <div>
-    <hr />
-    <dl class="row">
+    <dl class="row mx-2">
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
