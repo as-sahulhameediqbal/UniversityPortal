@@ -156,6 +156,7 @@ header ul.navbar-nav.menu-nav a.nav-link {
   color: #fff;
   margin-left: 6px;
   background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
 }
 header ul.navbar-nav.menu-nav a.nav-link:hover {
   background: #fff;
@@ -201,4 +202,14 @@ header ul.navbar-nav.menu-nav a.nav-link:hover {
 }
 .container-fluid.body-container main.main p a:hover {
   background: #5120bc;
+}
+
+footer.footer {
+  text-align: center;
+  border-top: 1px solid #cfcadb;
+  color: #212529;
+  font-size: 14px;
+}
+footer.footer a {
+  color: #5120bc;
 }
