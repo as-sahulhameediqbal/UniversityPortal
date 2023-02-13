@@ -96,16 +96,15 @@ namespace UniversityPortal.Controllers
 
         public IActionResult DegreeCertificateExportToPDF()
         {
-            var studresponse = await _studentService.GetStudentProfile();
-            var univresponse = await _universityService.Get(studresponse.UniversityId);
+            //var studresponse = await _studentService.GetStudentProfile();
+            //var univresponse = await _universityService.Get(studresponse.UniversityId);
 
             CertificateViewModel certificateViewModel = new CertificateViewModel();
-            certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = studresponse.Name;
-            certificateViewModel.ClassType = "FIRST CLASS with DISTINCTION";
-            certificateViewModel.DegreeName = studresponse.Program;
-            certificateViewModel.Department = studresponse.Department;
-            certificateViewModel.UniversityName = univresponse.Name;
+            certificateViewModel.Name = "Karthick";
+            certificateViewModel.ClassType = "FIRST CLASS with Distinction";
+            certificateViewModel.DegreeName = "MCA";
+            certificateViewModel.Department = "Computer Applications";
+            certificateViewModel.UniversityName = "King";
 
             // for export "Rotativa" used (wkhtmltopdf.exe)
             if (certificateViewModel != null)
@@ -125,16 +124,16 @@ namespace UniversityPortal.Controllers
 
         public IActionResult HallTicketExportToPDF()
         {
-            var studresponse = await _studentService.GetStudentProfile();
-            var univresponse = await _universityService.Get(studresponse.UniversityId);
+            //var studresponse = await _studentService.GetStudentProfile();
+            //var univresponse = await _universityService.Get(studresponse.UniversityId);
 
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.Name = "Karthick";
             certificateViewModel.DOB = "01/01/2003";
-            certificateViewModel.UniversityName = univresponse.Name;
-            certificateViewModel.RollNo = studresponse.RollNumber;
-            certificateViewModel.Gender = studresponse.Gender;
+            certificateViewModel.UniversityName = "King";
+            certificateViewModel.RollNo = "ED1245T1";
+            certificateViewModel.Gender = "Male";
 
             // for export "Rotativa" used (wkhtmltopdf.exe)
             if (certificateViewModel != null)
@@ -153,13 +152,12 @@ namespace UniversityPortal.Controllers
         }
         public IActionResult ProvisionalCertificateExportToPDF()
         {
-            var studresponse = await _studentService.GetStudentProfile();
-            var univresponse = await _universityService.Get(studresponse.UniversityId);
+            //var studresponse = await _studentService.GetStudentProfile();
+            //var univresponse = await _universityService.Get(studresponse.UniversityId);
 
             CertificateViewModel certificateViewModel = new CertificateViewModel();
-            certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = studresponse.Name;
-            certificateViewModel.UniversityName = univresponse.Name;
+            certificateViewModel.Name = "Karthick";
+            certificateViewModel.UniversityName = "King";
 
             // for export "Rotativa" used (wkhtmltopdf.exe)
             if (certificateViewModel != null)

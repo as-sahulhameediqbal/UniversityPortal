@@ -9,7 +9,7 @@ namespace UniversityPortal.Models
         public string ClassType { get; set; } = null!; // first second
         public string DegreeName { get; set; } = null!;
         public string Department { get; set; } = null!;
-        public DateTime DOB { get; set; }
+        public string DOB { get; set; }
         public string RollNo { get; set; } = null!;
         public string Gender { get; set; } = null!;
     }
