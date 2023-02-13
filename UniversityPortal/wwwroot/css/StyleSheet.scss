@@ -19,9 +19,13 @@ html {
 
 body {
     margin-bottom: 60px;
+    background: #f8fbff;
 }
 
 /* Common Style */
+a {
+    font-weight: 00;
+}
 .form-group {
     margin-bottom: 10px;
 }
@@ -131,6 +135,30 @@ header {
             &:hover {
                 background: #fff;
                 color: #5120bc;
+            }
+        }
+    }
+}
+.container-fluid.body-container {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    main.main {
+        margin-bottom: 15px;
+        border-radius: 4px;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0px 0 6px 5px rgb(209 209 209 / 32%);
+
+        p {
+            margin-top: 15px;
+            float: right;
+            a {
+                background: linear-gradient(90deg, rgb(81, 32, 188) 0%, rgb(255, 95, 175) 100%);
+                color: #fff;
+                padding: 10px 15px;
+                border-radius: 4px;
+                text-decoration: none;
             }
         }
     }
