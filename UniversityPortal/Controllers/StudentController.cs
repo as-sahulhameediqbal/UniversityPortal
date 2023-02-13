@@ -96,13 +96,16 @@ namespace UniversityPortal.Controllers
 
         public IActionResult DegreeCertificateExportToPDF()
         {
+            var studresponse = await _studentService.GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
+
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = "Kirubakaran";
+            certificateViewModel.Name = studresponse.Name;
             certificateViewModel.ClassType = "FIRST CLASS with Distinction";
             certificateViewModel.DegreeName = "MCA";
             certificateViewModel.Department = "Computer Applications";
-            certificateViewModel.UniversityName = "Bharathiar";
+            certificateViewModel.UniversityName = univresponse.Name;
 
             // for export "Rotativa" used (wkhtmltopdf.exe)
             if (certificateViewModel != null)
@@ -123,7 +126,7 @@ namespace UniversityPortal.Controllers
         public IActionResult ProvisionalCertificateExportToPDF()
         {
             var studresponse = await _studentService.GetStudentProfile();
-            var univresponse = await _universityService.Get(response.UniversityId);
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
 
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
