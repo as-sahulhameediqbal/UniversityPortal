@@ -18,7 +18,7 @@ namespace UniversityPortal.Interfaces.Services
         Task<StudentViewModel> GetStudentProfile();
         Task UpdatePaidTutionFee();
         string GetRole();
-        Task UpdateIsComplete();
+        Task UpdateIsComplete(Guid id);
         Task<IEnumerable<StudentCertificateViewModel>> GetStudentCertificateAll();
         Task VerifyStudentCertificate(Guid id, bool status);
     }
