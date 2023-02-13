@@ -59,7 +59,9 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> View(Guid id)
         {
+            string role = _studentService.GetRole();
             var response = await _studentService.Get(id);
+            response.Role = role;
             return View(response);
         }
 
@@ -94,7 +96,9 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewProfile()
         {
+            string role = _studentService.GetRole();                        
             var response = await _studentService.GetStudentProfile();
+            response.Role = role;
             return View("View", response);
         }
     }

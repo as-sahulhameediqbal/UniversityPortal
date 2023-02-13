@@ -1,11 +1,11 @@
 ﻿@model UniversityPortal.Models.StudentViewModel
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "My Profile";
 }
 
-<h1>View</h1>
-<input type="hidden" value="@Model.Role" />
+<h1>My Profile</h1>
+
 <div>
     <hr />
     <dl class="row">
@@ -90,27 +90,12 @@
         </dd>
     </dl>
 </div>
-<div>
-    @if (@Model.Role == "Student")
-    {
-        <a asp-controller="Home" asp-action="Index">Back to List</a>
-    }
-    else if (Model.Role == "Accountant")
-    {   
-        <a asp-action="Index">Course Completed</a>
-        <span>|</Span>
-        <a asp-action="Index">Back to List</a>
-    }
-    else if (Model.Role == "Admin")
-    {
-        @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) 
-        <span>|</Span>
-        <a asp-action="Index">Back to List</a>
-    }
+<div>    
+    <a asp-action="Index">Back to List</a>
 
     @if (Model.IsPaid == false)
-    {   
-        <span>|</Span>
-        @Html.ActionLink("Pay Tution Fees", "Index", "Payment", new { type = "TutionFees" });
+    {     
+        <span>| </span>
+        @Html.ActionLink("Pay Tution Fees", "Index", "Payment", new { type = "TutionFees" })
     }
 </div>

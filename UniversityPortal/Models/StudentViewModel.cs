@@ -51,5 +51,6 @@ namespace UniversityPortal.Models
         [Display(Name = "Amount Paid")]
         public bool IsPaid { get; set; } 
         public List<SelectListItem>? Genders { get; set; } = null;
+        public string? Role { get; set; }
     }
 }

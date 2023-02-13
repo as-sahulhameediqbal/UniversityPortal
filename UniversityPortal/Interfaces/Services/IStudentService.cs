@@ -17,5 +17,6 @@ namespace UniversityPortal.Interfaces.Services
         Task<List<SelectListItem>> GetAllGender();
         Task<StudentViewModel> GetStudentProfile();
         Task UpdatePaidTutionFee();
+        string GetRole();
     }
 }
