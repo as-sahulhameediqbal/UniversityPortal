@@ -213,3 +213,15 @@ footer.footer {
 footer.footer a {
   color: #5120bc;
 }
+
+/* Payment Page */
+.input-group .input-icon {
+  display: inline-block;
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  padding: 0.75rem 0rem;
+  right: 1rem;
+  z-index: 1;
+  color: #5120bc;
+}
