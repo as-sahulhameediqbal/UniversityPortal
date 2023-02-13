@@ -1,4 +1,5 @@
-﻿using UniversityPortal.Common;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using UniversityPortal.Common;
 using UniversityPortal.Models;
 
 namespace UniversityPortal.Interfaces.Services
@@ -9,6 +10,7 @@ namespace UniversityPortal.Interfaces.Services
         Task<IEnumerable<UniversityStaffViewModel>> GetAll();
         Task<Guid> GetUniversityId();
         Task<AppResponse> Save(UniversityStaffViewModel model);
-        Task<AppResponse> Create(UniversityStaffViewModel model, bool isAdd);       
+        Task<AppResponse> Create(UniversityStaffViewModel model, bool isAdd);
+        Task<List<SelectListItem>> GetAllRoles();
     }
 }

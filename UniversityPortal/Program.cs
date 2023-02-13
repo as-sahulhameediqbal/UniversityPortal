@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 using UniversityPortal.Common;
 using UniversityPortal.Data;
 
@@ -28,7 +29,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
+IWebHostEnvironment env = app.Environment;
 await Seed.SeedUsersAndRolesAsync(app);
 
 // Configure the HTTP request pipeline.
@@ -54,5 +55,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-
+RotativaConfiguration.Setup((Microsoft.AspNetCore.Hosting.IHostingEnvironment)env);
 app.Run();

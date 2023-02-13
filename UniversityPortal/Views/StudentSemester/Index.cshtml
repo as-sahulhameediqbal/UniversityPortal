@@ -39,7 +39,7 @@
                 <td>
                     @if (item.IsPaid && !item.IsResult)
                     {
-                        @Html.ActionLink("Hall Ticket", "ViewHallTicket","StudentExam", new { sem=item.Semester,year = item.SemesterYear })
+                        @Html.ActionLink("Hall Ticket", "ViewHallTicket","StudentExam", new { sem=item.Semester,year = item.SemesterYear }, new { target = "_blank" }))
                     }
                 </td>
             </tr>

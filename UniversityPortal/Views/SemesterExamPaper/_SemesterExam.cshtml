@@ -1,0 +1,47 @@
+﻿@model IEnumerable<UniversityPortal.Models.SemesterExamModel>
+
+
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseSemester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SemesterYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BaseSemester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SemesterYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExamDate)
+                </td>                
+            </tr>
+        }
+    </tbody>
+</table>

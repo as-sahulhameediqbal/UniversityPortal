@@ -1,4 +1,6 @@
-﻿using UniversityPortal.Common;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using UniversityPortal.Common;
 using UniversityPortal.Models;
 
 namespace UniversityPortal.Interfaces.Services
@@ -8,10 +10,14 @@ namespace UniversityPortal.Interfaces.Services
         Task<StudentViewModel> Get(Guid id);
         Task<IEnumerable<StudentViewModel>> GetAll();
         Task<AppResponse> Save(StudentViewModel model);
-
-
-
-        //Task<AppResponse> AddFee(FeesViewModel model);
-        //Task<AppResponse> AddMarks(MarksViewModel marksViewModel);
+        Task<Guid> GetUniversityId();
+        Task<Guid> GetStudentId();
+        Task<string> GetStudentName();
+        Task<string> GetStudentName(Guid id);
+        Task<List<SelectListItem>> GetAllGender();
+        Task<StudentViewModel> GetStudentProfile();
+        Task UpdatePaidTutionFee();
+        string GetRole();
+        Task UpdateIsComplete();
     }
 }

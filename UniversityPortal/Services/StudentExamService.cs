@@ -6,6 +6,7 @@ using UniversityPortal.Models;
 using UniversityPortal.Services.Base;
 using Rotativa.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using UniversityPortal.Entity;
 
 namespace UniversityPortal.Services
 {
@@ -247,7 +248,7 @@ namespace UniversityPortal.Services
         {
             var studresponse = await _studentService.GetStudentProfile();
             var univresponse = await _universityService.Get(studresponse.UniversityId);
-
+            var semesterExams = await GetStudentExam(sem, year);
             DateTime semesterMonth = new DateTime(2023, sem, 1);
             string semMonth_name = semesterMonth.ToString("MMM");
 
@@ -260,7 +261,7 @@ namespace UniversityPortal.Services
             certificateViewModel.Gender = studresponse.Gender;
             certificateViewModel.Month = semMonth_name;
             certificateViewModel.Year = year.ToString();
-
+            certificateViewModel.StudentExam = semesterExams;
             // for export "Rotativa" used (wkhtmltopdf.exe)
             if (certificateViewModel != null)
             {

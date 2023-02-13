@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace UniversityPortal.Models
 {
@@ -32,6 +33,7 @@ namespace UniversityPortal.Models
         [Required]
         public bool IsActive { get; set; }
         public Guid UniversityId { get; set; }
+        public List<SelectListItem>? Roles { get; set; } = null!;
 
     }
 }

@@ -1,0 +1,60 @@
+﻿@model UniversityPortal.Models.StudentModel
+
+@{
+    ViewData["Title"] = "Mark";
+}
+
+<h1>Mark</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RollNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RollNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Program)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Program)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Semester)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Semester)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SemesterYear)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SemesterYear)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="View" asp-route-sem="@Model.Semester" asp-route-year="@Model.SemesterYear">Back to List</a>
+</div>
+<div>
+    <partial name="_SemesterExam" model=Model.CurrentPapers />
+    @if (Model.ArrearPapers.Count() > 0)
+    {
+        <h1>Arrears</h1>
+        <partial name="_SemesterExam" model=Model.ArrearPapers />
+    }
+</div>

@@ -1,0 +1,25 @@
+﻿@model UniversityPortal.Models.SemesterExamPaperViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    @if (!Model.IsPublish)
+    {
+        <a asp-action="Publish" asp-route-sem="@Model.Sem" asp-route-year="@Model.Year">Publish</a>
+    }
+</p>
+<hr />
+<partial name="_SemesterExam" model=Model.Semester />
+
+
+@if (Model.Arrear.Count() > 0)
+{
+    <h1>Arrears</h1>
+    <partial name="_SemesterExam" model=Model.Arrear />
+}
+
+
+<div>
+    <a asp-action="Index" asp-controller="SemesterExam">Back to List</a>
+</div>

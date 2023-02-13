@@ -1,0 +1,47 @@
+﻿@model IEnumerable<UniversityPortal.Models.SemesterExamViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SemesterYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamPublishedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SemesterYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @if (item.IsPublish)
+                    {
+                        @Html.DisplayFor(modelItem => item.ExamPublishedDate)
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("View", "Index","SemesterExamPaper", new { sem=item.Semester,year=item.SemesterYear })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

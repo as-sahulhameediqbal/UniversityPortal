@@ -1,0 +1,80 @@
+﻿@model UniversityPortal.Models.StudentExamViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Semester)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Semester)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SemesterYear)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SemesterYear)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PublishDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PublishDate)
+        </dd>
+
+        @if (Model.IsResult)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ResultDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ResultDate)
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsPaid)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsPaid)
+            </dd>
+        }
+    </dl>
+</div>
+
+<p>
+    @if (!Model.IsPaid && !Model.IsResult)
+    {
+        @Html.ActionLink("Pay Exam Fees", "Index", "Payment", new { type = "ExamFees",sem=Model.Semester,year=Model.SemesterYear });
+    }
+</p>
+<hr />
+<div>
+    <partial name="_StudentExam" model=Model.CurrentPapers />
+    @if (Model.ArrearPapers.Count() > 0)
+    {
+        <h1>Arrears</h1>
+        <partial name="_StudentExam" model=Model.ArrearPapers />
+    }
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="StudentSemester">Back to List</a>
+</div>

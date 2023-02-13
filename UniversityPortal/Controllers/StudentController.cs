@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
+using System.Data;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
+using UniversityPortal.Services;
 
 namespace UniversityPortal.Controllers
 {
@@ -28,9 +31,11 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var genders = await _studentService.GetAllGender();
             var response = new StudentViewModel();
             response.IsActive = true;
             response.JoiningDate = DateTimeOffset.Now;
+            response.Genders = genders;
             return View(response);
         }
 
@@ -54,7 +59,9 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> View(Guid id)
         {
+            string role = _studentService.GetRole();
             var response = await _studentService.Get(id);
+            response.Role = role;
             return View(response);
         }
 
@@ -62,7 +69,9 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            var genders = await _studentService.GetAllGender();
             var response = await _studentService.Get(id);
+            response.Genders = genders;
             return View(response);
         }
 
@@ -84,54 +93,26 @@ namespace UniversityPortal.Controllers
             return RedirectToAction("Index", "Student");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ViewProfile()
+        {
+            string role = _studentService.GetRole();                        
+            var response = await _studentService.GetStudentProfile();
+            response.Role = role;
+            return View("View", response);
+        }
 
-        //public async Task<IActionResult> PaymentForSemesterFees(FeesViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var result = await _studentService.AddFee(model);
-        //    if (!result.Success)
-        //    {
-        //        TempData["Error"] = result.Message;
-        //        return View(model);
-        //    }
-        //    return RedirectToAction("Index", "Student");
-        //}
+        public async Task<IActionResult> Certificate()
+        {
+            return View();
+        }
 
-        //public async Task<IActionResult> AddMarks(MarksViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var result = await _studentService.AddMarks(model);
-        //    if (!result.Success)
-        //    {
-        //        TempData["Error"] = result.Message;
-        //        return View(model);
-        //    }
-        //    return RedirectToAction("Index", "Student");
-        //}
-
-        //public ActionResult SemesterMarks(MarksViewModel marksViewModel) // partial view of AddMarks
-        //{
-        //    if (Request.IsAjaxRequest())
-        //    {
-        //        ContactModel contact = new ContactModel();
-        //        contact.ContactName = customer.ContactMode.ContactName;
-        //        contact.ContactNo = customer.ContactMode.ContactNo;
-
-        //        if (customer.Contacts == null)
-        //        {
-        //            customer.Contacts = new List<ContactModel>();
-        //        }
-
-        //        customer.Contacts.Add(contact);
-
-        //        return PartialView("_Contact", customer);
-        //    }
-        //}
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> CourseComplete()
+        {
+            await _studentService.UpdateIsComplete();
+            return RedirectToAction("ViewProfile", "Student");
+        }
     }
 }

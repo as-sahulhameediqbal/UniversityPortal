@@ -14,15 +14,18 @@ namespace UniversityPortal.Repository.Base
             UniversityStaffRepository = new UniversityStaffRepository(dbContext);
             StudentRepository = new StudentRepository(dbContext);
             PaperRepository = new PaperRepository(dbContext);
-
+            StudentExamRepository = new StudentExamRepository(dbContext);
+            SemesterExamRepository = new SemesterExamRepository(dbContext);
+            PaymentRepository = new PaymentRepository(dbContext);
         }
 
         public IUniversityRepository UniversityRepository { get; private set; }
         public IUniversityStaffRepository UniversityStaffRepository { get; private set; }
         public IStudentRepository StudentRepository { get; private set; }
         public IPaperRepository PaperRepository { get; private set; }
-
-
+        public IStudentExamRepository StudentExamRepository { get; private set; }
+        public ISemesterExamRepository SemesterExamRepository { get; private set; }
+        public IPaymentRepository PaymentRepository { get; private set; }
 
 
         public async Task<int> Save()

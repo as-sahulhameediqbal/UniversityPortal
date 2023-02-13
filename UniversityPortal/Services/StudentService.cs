@@ -7,22 +7,41 @@ using UniversityPortal.Services.Base;
 using UniversityPortal.Models;
 using UniversityPortal.Data;
 using UniversityPortal.Common;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
 
 namespace UniversityPortal.Services
 {
     public class StudentService : BaseService, IStudentService
     {
+        public List<SelectListItem> Genders = new()
+            {
+                new SelectListItem { Value = "Male", Text = "Male" },
+                new SelectListItem { Value = "Female", Text = "Female" },
+                new SelectListItem { Value = "Transgender ", Text = "Transgender " }
+            };
+
         private readonly IUserService _userService;
         private readonly IUniversityStaffService _universityStaffService;
+        private readonly IUniversityService _universityService;
+
         public StudentService(IUnitOfWork unitOfWork,
                               IMapper mapper,
                               IDateTimeProvider dateTimeProvider,
                               ICurrentUserService currentUserService,
                               IUserService userService,
-                              IUniversityStaffService universityStaffService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
+                              IUniversityStaffService universityStaffService,
+                              IUniversityService universityService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
             _userService = userService;
             _universityStaffService = universityStaffService;
+            _universityService = universityService;
+        }
+
+        public async Task<List<SelectListItem>> GetAllGender()
+        {
+            return Genders;
         }
 
 
@@ -30,7 +49,7 @@ namespace UniversityPortal.Services
         {
             var result = await UnitOfWork.StudentRepository.Get(id);
             var student = Mapper.Map<StudentViewModel>(result);
-            student.Password = "Test";
+            student.Password = nameof(student.Password);
             return student;
 
         }
@@ -40,6 +59,43 @@ namespace UniversityPortal.Services
             var result = await UnitOfWork.StudentRepository.FindAll(x => x.UniversityId == universityId);
             var student = Mapper.Map<IEnumerable<StudentViewModel>>(result);
             return student;
+        }
+
+        public async Task<Guid> GetUniversityId()
+        {
+            var result = await UnitOfWork.StudentRepository.FindAsync(x => x.IsActive
+                                                                         && x.Email == CurrentUserService.Email);
+
+            return result.UniversityId;
+        }
+
+        public async Task<StudentViewModel> GetStudentProfile()
+        {
+            var id = await GetStudentId();
+            var response = await Get(id);
+            return response;
+        }
+
+        public async Task<Guid> GetStudentId()
+        {
+            var result = await UnitOfWork.StudentRepository.FindAsync(x => x.IsActive
+                                                                         && x.Email == CurrentUserService.Email);
+
+            return result.Id;
+        }
+
+        public async Task<string> GetStudentName()
+        {
+            var result = await UnitOfWork.StudentRepository.FindAsync(x => x.IsActive
+                                                                         && x.Email == CurrentUserService.Email);
+
+            return result.Name;
+        }
+
+        public async Task<string> GetStudentName(Guid id)
+        {
+            var result = await UnitOfWork.StudentRepository.Get(id);
+            return result.Name;
         }
 
         public async Task<AppResponse> Save(StudentViewModel model)
@@ -96,6 +152,19 @@ namespace UniversityPortal.Services
             UnitOfWork.StudentRepository.Update(student);
         }
 
+        public async Task UpdatePaidTutionFee()
+        {
+            var id = await GetStudentId();
+            var student = await UnitOfWork.StudentRepository.Get(id);
+
+            student.IsPaid = true;
+            student.ModifiedBy = CurrentUserService.UserId;
+            student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+
+            UnitOfWork.StudentRepository.Update(student);
+            await UnitOfWork.Save();
+        }
+
         private async Task<AppResponse> IsStudentExists(StudentViewModel model)
         {
             if (model.Id == Guid.Empty)
@@ -123,5 +192,22 @@ namespace UniversityPortal.Services
             return AppResult.msg(true, "Student not exist");
         }
 
+        public string GetRole()
+        {
+            return CurrentUserService.Role;
+        }
+
+        public async Task UpdateIsComplete()
+        {
+            var id = await GetStudentId();
+            var student = await UnitOfWork.StudentRepository.Get(id);
+
+            student.IsCompleted = true;
+            student.ModifiedBy = CurrentUserService.UserId;
+            student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+
+            UnitOfWork.StudentRepository.Update(student);
+            await UnitOfWork.Save();
+        }
     }
 }
