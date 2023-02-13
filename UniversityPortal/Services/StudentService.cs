@@ -196,5 +196,18 @@ namespace UniversityPortal.Services
         {
             return CurrentUserService.Role;
         }
+
+        public async Task UpdateIsComplete()
+        {
+            var id = await GetStudentId();
+            var student = await UnitOfWork.StudentRepository.Get(id);
+
+            student.IsCompleted = true;
+            student.ModifiedBy = CurrentUserService.UserId;
+            student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+
+            UnitOfWork.StudentRepository.Update(student);
+            await UnitOfWork.Save();
+        }
     }
 }

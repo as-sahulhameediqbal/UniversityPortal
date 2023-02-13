@@ -101,5 +101,18 @@ namespace UniversityPortal.Controllers
             response.Role = role;
             return View("View", response);
         }
+
+        public async Task<IActionResult> Certificate()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> CourseComplete()
+        {
+            await _studentService.UpdateIsComplete();
+            return RedirectToAction("ViewProfile", "Student");
+        }
     }
 }

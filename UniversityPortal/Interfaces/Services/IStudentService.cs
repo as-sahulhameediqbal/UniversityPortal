@@ -18,5 +18,6 @@ namespace UniversityPortal.Interfaces.Services
         Task<StudentViewModel> GetStudentProfile();
         Task UpdatePaidTutionFee();
         string GetRole();
+        Task UpdateIsComplete();
     }
 }

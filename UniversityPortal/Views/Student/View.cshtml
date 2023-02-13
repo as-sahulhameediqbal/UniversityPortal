@@ -83,6 +83,12 @@
             @Html.DisplayFor(model => model.IsPaid)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsCourseCompleted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsCourseCompleted)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
         <dd class="col-sm-10">
@@ -97,7 +103,7 @@
     }
     else if (Model.Role == "Accountant")
     {   
-        <a asp-action="Index">Course Completed</a>
+        @*@Html.ActionLink("Course Completed", "CourseComplete", "Student");*@
         <span>|</Span>
         <a asp-action="Index">Back to List</a>
     }

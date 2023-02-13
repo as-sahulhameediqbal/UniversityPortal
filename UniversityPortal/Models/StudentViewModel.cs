@@ -45,6 +45,8 @@ namespace UniversityPortal.Models
         [Display(Name = "Tution Fee")]
         [DataType(DataType.Currency)]
         public decimal TutionFee { get; set; }
+        [Display(Name = "Course Completed")]
+        public bool IsCourseCompleted { get; set; }
         public bool IsActive { get; set; }
 
         public Guid UniversityId { get; set; }
