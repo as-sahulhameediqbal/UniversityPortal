@@ -8,5 +8,9 @@ namespace UniversityPortal.Interfaces.Services
         Task<StudentExamViewModel> GetStudentExam(int sem, int year);
         Task<StudentExamViewModel> GetStudentSemesterExam(Guid studentId, Guid universityId, int sem, int year);
         Task UpdatePaidExamFee(int sem, int year);
+        Task<IActionResult> HallTicketExportToPDF(int sem, int year);
+        Task<IActionResult> ProvisionalCertificateExportToPDF();
+        Task<IActionResult> DegreeCertificateExportToPDF();
+
     }
 }

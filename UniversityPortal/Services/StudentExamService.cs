@@ -4,19 +4,22 @@ using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
 using UniversityPortal.Services.Base;
+using Rotativa.AspNetCore;
 
 namespace UniversityPortal.Services
 {
     public class StudentExamService : BaseService, IStudentExamService
     {
         private readonly IStudentService _studentService;
+        private readonly IUniversityService _universityService;
         public StudentExamService(IUnitOfWork unitOfWork,
                                   IMapper mapper,
                                   IDateTimeProvider dateTimeProvider,
                                   ICurrentUserService currentUserService,
-                                  IStudentService studentService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
+                                  IStudentService studentService, IUniversityService universityService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
             _studentService = studentService;
+            _universityService = universityService;
         }
 
 
@@ -173,5 +176,104 @@ namespace UniversityPortal.Services
             await UnitOfWork.Save();
 
         }
+
+
+        #region degree certificate code
+        public async Task<IActionResult> DegreeCertificateExportToPDF()
+        {
+            var studresponse = await GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
+            CertificateViewModel certificateViewModel = new CertificateViewModel();
+            certificateViewModel = new CertificateViewModel();
+            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.ClassType = "FIRST CLASS with DISTINCTION";
+            certificateViewModel.DegreeName = studresponse.Program;
+            certificateViewModel.Department = studresponse.Department;
+            certificateViewModel.UniversityName = univresponse.Name;             // for export "Rotativa" used (wkhtmltopdf.exe)
+            if (certificateViewModel != null)
+            {
+                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                return GeneratePDFForDegreeCertificate(certificateViewModel);
+            }
+            return null;
+        }
+
+        public ViewAsPdf GeneratePDFForDegreeCertificate(CertificateViewModel certificateViewModel)
+        {
+            return new ViewAsPdf("DegreeCertificateExportToPDF", certificateViewModel)
+            {
+                PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+            };
+        }
+        #endregion
+
+        #region provisional certificate code
+        public async Task<IActionResult> ProvisionalCertificateExportToPDF()
+        {
+            var studresponse = await GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
+            CertificateViewModel certificateViewModel = new CertificateViewModel();
+            certificateViewModel = new CertificateViewModel();
+            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.UniversityName = univresponse.Name;             // for export "Rotativa" used (wkhtmltopdf.exe)
+            if (certificateViewModel != null)
+            {
+                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                return GeneratePDFForProvisionalCertificate(certificateViewModel);
+            }
+            return null;
+        }
+
+        public ViewAsPdf GeneratePDFForProvisionalCertificate(CertificateViewModel certificateViewModel)
+        {
+            return new ViewAsPdf("ProvisionalCertificateExportToPDF", certificateViewModel)
+            {
+                PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+            };
+        }
+        #endregion
+
+        #region hall ticket code
+        public async Task<IActionResult> HallTicketExportToPDF(int sem, int year)
+        {
+            var studresponse = await GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
+
+            DateTime semesterMonth = new DateTime(2023, sem, 1);
+            string semMonth_name = semesterMonth.ToString("MMM");
+
+            CertificateViewModel certificateViewModel = new CertificateViewModel();
+            certificateViewModel = new CertificateViewModel();
+            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.DOB = "01/01/2003";
+            certificateViewModel.UniversityName = univresponse.Name;
+            certificateViewModel.RollNo = studresponse.RollNumber;
+            certificateViewModel.Gender = studresponse.Gender;
+            certificateViewModel.Month = semMonth_name;
+            certificateViewModel.Year = year.ToString();
+
+            // for export "Rotativa" used (wkhtmltopdf.exe)
+            if (certificateViewModel != null)
+            {
+                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                return HallTicketExportToPDF(certificateViewModel);
+            }
+            return null;
+        }
+
+        public ViewAsPdf HallTicketExportToPDF(CertificateViewModel certificateViewModel)
+        {
+            return new ViewAsPdf("HallTicketExportToPDF", certificateViewModel)
+            {
+                PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+            };
+        }
+        #endregion
     }
 }

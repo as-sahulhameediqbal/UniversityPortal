@@ -30,7 +30,21 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewHallTicket(int sem, int year)
         {
-            var response = await _studentService.DegreeCertificateExportToPDF();
+            var response = await _studentExamService.HallTicketExportToPDF(sem, year);
+            return response;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewDegreeCertificate()
+        {
+            var response = await _studentExamService.DegreeCertificateExportToPDF();
+            return response;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewProvisionalCertificate()
+        {
+            var response = await _studentExamService.ProvisionalCertificateExportToPDF();
             return response;
         }
     }

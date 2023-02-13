@@ -12,5 +12,7 @@ namespace UniversityPortal.Models
         public string DOB { get; set; }
         public string RollNo { get; set; } = null!;
         public string Gender { get; set; } = null!;
+        public string Month { get; set; } = null!;
+        public string Year { get; set; } = null!;
     }
 }

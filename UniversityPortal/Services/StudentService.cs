@@ -191,34 +191,5 @@ namespace UniversityPortal.Services
 
             return AppResult.msg(true, "Student not exist");
         }
-
-        public async Task<IActionResult> DegreeCertificateExportToPDF()
-        {
-            var studresponse = await GetStudentProfile();
-            var univresponse = await _universityService.Get(studresponse.UniversityId); 
-            CertificateViewModel certificateViewModel = new CertificateViewModel();
-            certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = studresponse.Name;
-            certificateViewModel.ClassType = "FIRST CLASS with DISTINCTION";
-            certificateViewModel.DegreeName = studresponse.Program;
-            certificateViewModel.Department = studresponse.Department;
-            certificateViewModel.UniversityName = univresponse.Name;             // for export "Rotativa" used (wkhtmltopdf.exe)
-            if (certificateViewModel != null)
-            {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                return GeneratePDF(certificateViewModel);
-            }
-            return null;
-        }
-
-        public ViewAsPdf GeneratePDF(CertificateViewModel certificateViewModel)
-        {
-            return new ViewAsPdf("DegreeCertificateExportToPDF", certificateViewModel)
-            {
-                PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
-                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                PageSize = Rotativa.AspNetCore.Options.Size.A4,
-            };
-        }
     }
 }

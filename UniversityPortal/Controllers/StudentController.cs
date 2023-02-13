@@ -6,7 +6,6 @@ using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
 using UniversityPortal.Services;
-using Rotativa.AspNetCore;
 
 namespace UniversityPortal.Controllers
 {
@@ -14,12 +13,10 @@ namespace UniversityPortal.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
-        private readonly IUniversityService _universityService;
 
-        public StudentController(IStudentService studentService, IUniversityService universityService)
+        public StudentController(IStudentService studentService)
         {
             _studentService = studentService;
-            _universityService = universityService;
         }
 
         
@@ -92,87 +89,6 @@ namespace UniversityPortal.Controllers
                 return View(model);
             }
             return RedirectToAction("Index", "Student");
-        }
-
-        public IActionResult DegreeCertificateExportToPDF()
-        {
-            //var studresponse = await _studentService.GetStudentProfile();
-            //var univresponse = await _universityService.Get(studresponse.UniversityId);
-
-            CertificateViewModel certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = "Karthick";
-            certificateViewModel.ClassType = "FIRST CLASS with Distinction";
-            certificateViewModel.DegreeName = "MCA";
-            certificateViewModel.Department = "Computer Applications";
-            certificateViewModel.UniversityName = "King";
-
-            // for export "Rotativa" used (wkhtmltopdf.exe)
-            if (certificateViewModel != null)
-            {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                var report = new ViewAsPdf("DegreeCertificateExportToPDF", certificateViewModel)
-                {
-                    PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
-                    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                    PageSize = Rotativa.AspNetCore.Options.Size.A4,
-                };
-
-                return report;
-            }
-            return NoContent();
-        }
-
-        public IActionResult HallTicketExportToPDF()
-        {
-            //var studresponse = await _studentService.GetStudentProfile();
-            //var univresponse = await _universityService.Get(studresponse.UniversityId);
-
-            CertificateViewModel certificateViewModel = new CertificateViewModel();
-            certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = "Karthick";
-            certificateViewModel.DOB = "01/01/2003";
-            certificateViewModel.UniversityName = "King";
-            certificateViewModel.RollNo = "ED1245T1";
-            certificateViewModel.Gender = "Male";
-
-            // for export "Rotativa" used (wkhtmltopdf.exe)
-            if (certificateViewModel != null)
-            {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                var report = new ViewAsPdf("HallTicketExportToPDF", certificateViewModel)
-                {
-                    PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
-                    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                    PageSize = Rotativa.AspNetCore.Options.Size.A4,
-                };
-
-                return report;
-            }
-            return NoContent();
-        }
-        public IActionResult ProvisionalCertificateExportToPDF()
-        {
-            //var studresponse = await _studentService.GetStudentProfile();
-            //var univresponse = await _universityService.Get(studresponse.UniversityId);
-
-            CertificateViewModel certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = "Karthick";
-            certificateViewModel.UniversityName = "King";
-
-            // for export "Rotativa" used (wkhtmltopdf.exe)
-            if (certificateViewModel != null)
-            {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                var report = new ViewAsPdf("DegreeCertificateExportToPDF", certificateViewModel)
-                {
-                    PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
-                    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                    PageSize = Rotativa.AspNetCore.Options.Size.A4,
-                };
-
-                return report;
-            }
-            return NoContent();
         }
 
         [HttpGet]
