@@ -83,10 +83,10 @@
             @Html.DisplayFor(model => model.IsPaid)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsCourseCompleted)
+            @Html.DisplayNameFor(model => model.IsCompleted)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsCourseCompleted)
+            @Html.DisplayFor(model => model.IsCompleted)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
@@ -101,9 +101,9 @@
     {
         <a asp-controller="Home" asp-action="Index">Back to List</a>
     }
-    else if (Model.Role == "Accountant")
-    {   
-        @*@Html.ActionLink("Course Completed", "CourseComplete", "Student");*@
+    else if (Model.Role == "Accountant" && Model.IsPaid == true && Model.IsCompleted == false)
+    {
+        @Html.ActionLink("Course Completed", "CourseComplete", "Student",new {id=Model.Id})        
         <span>|</Span>
         <a asp-action="Index">Back to List</a>
     }

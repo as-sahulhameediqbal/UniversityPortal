@@ -19,7 +19,6 @@ namespace UniversityPortal.Controllers
             _studentService = studentService;
         }
 
-        
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -35,7 +34,7 @@ namespace UniversityPortal.Controllers
             var response = new StudentViewModel();
             response.IsActive = true;
             response.JoiningDate = DateTimeOffset.Now;
-            response.Genders = genders;
+            response.Genders = genders;            
             return View(response);
         }
 
@@ -104,15 +103,16 @@ namespace UniversityPortal.Controllers
 
         public async Task<IActionResult> Certificate()
         {
-            return View();
+            var response = await _studentService.GetStudentProfile();
+            return View("Certificate", response);
         }
 
-        [Authorize(Roles = UserRoles.Admin)]
-        [HttpPost]
-        public async Task<IActionResult> CourseComplete()
+        
+        [HttpGet]
+        public async Task<IActionResult> CourseComplete(Guid id)
         {
-            await _studentService.UpdateIsComplete();
-            return RedirectToAction("ViewProfile", "Student");
+            await _studentService.UpdateIsComplete(id);
+            return RedirectToAction("Index", "Student");
         }
     }
 }

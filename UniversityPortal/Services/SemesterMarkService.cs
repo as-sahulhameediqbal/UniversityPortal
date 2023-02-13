@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;

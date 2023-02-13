@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
+using UniversityPortal.Models;
 
 namespace UniversityPortal.Controllers
 {
@@ -9,17 +11,19 @@ namespace UniversityPortal.Controllers
     public class SemesterMarkController : Controller
     {
         private readonly ISemesterMarkService _semesterMarkService;
+        private readonly IStudentExamService _studentExamService;
 
-        public SemesterMarkController(ISemesterMarkService semesterMarkService)
+        public SemesterMarkController(ISemesterMarkService semesterMarkService, IStudentExamService studentExamService)
         {
             _semesterMarkService = semesterMarkService;
+            _studentExamService = studentExamService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var response = await _semesterMarkService.GetSemesterAll();
-            return View(response);
+            return View("Index", response);
         }
 
         [HttpGet]
@@ -42,6 +46,13 @@ namespace UniversityPortal.Controllers
         {
             await _semesterMarkService.PublishMarkResult(sem, year);
             return RedirectToAction("Index", "SemesterMark");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SaveMark(string model)
+        {
+            await _studentExamService.UpdateStuentMark(model);
+            return RedirectToAction("Index");
         }
     }
 }

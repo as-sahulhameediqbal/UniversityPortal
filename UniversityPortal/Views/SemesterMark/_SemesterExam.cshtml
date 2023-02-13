@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<UniversityPortal.Models.StudentExamModel>
 
 
-<table class="table">
+
+<table id="StudentMarks" class="table">
     <thead>
         <tr>
             <th>
@@ -18,35 +19,95 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Attempt)
-            </th>           
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ExamDate)
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BaseSemester)
-                </td>
-                <td>
-                    <input asp-for="@item.Marks" class="form-control" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsPass)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Attempt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExamDate)
-                </td>
-            </tr>
+        @{
+            foreach (var item in Model)
+            {                
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BaseSemester)
+                    </td>
+                    <td>
+                        <input data-id=@item.StudentExamId asp-for="@item.Marks" class="form-control" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPass)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Attempt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExamDate)
+                    </td>
+                </tr>
+            }
         }
+        @*@foreach (var item in Model)
+        {
+        <tr>
+        <td>
+        @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.BaseSemester)
+        </td>
+        <td>
+        <input asp-for="@item.Marks" class="form-control" />
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.IsPass)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Attempt)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.ExamDate)
+        </td>
+        </tr>
+        }*@
     </tbody>
 </table>
+@*<button type="button" onclick="onSaveHanlder(this)">Save</button>*@
+<input type="submit" value="Save" class="btn btn-primary" onclick="onSaveHanlder(this)" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+
+    function onSaveHanlder(e) {
+        var inputData = [];
+        $("#StudentMarks input[type='text']").each(function () {
+            var mark = $(this).val(); 
+            var dataSet = $(this).data();
+            
+            inputData.push({
+                id: dataSet.id,
+                Marks: mark
+            });
+        })
+        console.log(inputData);
+        console.log(JSON.stringify(inputData));        
+        
+        var url = "/SemesterMark/SaveMark?model=" + JSON.stringify(inputData);
+        $.ajax(
+            {
+                type: 'Get',
+                url: url,
+                cache: false,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) { },
+                error: function (error) {
+                    console.log("Failed to load lock info", error);
+                }
+            });
+    }
+</script>

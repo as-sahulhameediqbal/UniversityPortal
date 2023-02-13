@@ -9,6 +9,8 @@
 <div>
     <hr />
     <dl class="row">
+        @Html.HiddenFor(model => model.StudentId)
+        @Html.HiddenFor(model => model.Semester)
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.StudentName)
         </dt>
@@ -17,6 +19,7 @@
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RollNumber)
+            <input type="hidden" id="hdnRollNumber" value=@Model.RollNumber />            
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RollNumber)
@@ -58,3 +61,5 @@
         <partial name="_SemesterExam" model=Model.ArrearPapers />
     }
 </div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>

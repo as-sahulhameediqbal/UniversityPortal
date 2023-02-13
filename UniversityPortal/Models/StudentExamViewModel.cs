@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace UniversityPortal.Models
 {
@@ -38,5 +39,12 @@ namespace UniversityPortal.Models
         [DataType(DataType.Date)]
         public DateTimeOffset ExamDate { get; set; }
         public bool IsResult { get; set; }
+    }
+
+    public class StudentMark
+    {
+        public Guid Id { get; set; }
+        [JsonProperty("Marks")]
+        public string Marks { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using UniversityPortal.Services.Base;
 using Rotativa.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using UniversityPortal.Entity;
+using Newtonsoft.Json;
 
 namespace UniversityPortal.Services
 {
@@ -281,5 +282,34 @@ namespace UniversityPortal.Services
             };
         }
         #endregion
+
+        public async Task UpdateStuentMark(string inputData)
+        {
+            try
+            {
+                var studentMarkList = JsonConvert.DeserializeObject<List<StudentMark>>(inputData)!;
+                foreach (var item in studentMarkList)
+                {
+                    var semester = await UnitOfWork.StudentExamRepository.Get(item.Id);
+                    if (semester != null)
+                    {
+                        semester.Marks = Convert.ToDecimal(item.Marks);
+                        semester.IsPass = (semester.Marks >= 50);
+                        semester.ResultDate = DateTimeProvider.DateTimeOffsetNow;
+                        semester.ModifiedBy = CurrentUserService.UserId;
+                        semester.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+                        UnitOfWork.StudentExamRepository.Update(semester);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            await UnitOfWork.Save();
+            return;
+        }
+
+        
     }
 }

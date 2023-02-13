@@ -13,6 +13,6 @@ namespace UniversityPortal.Interfaces.Services
         Task<IActionResult> HallTicketExportToPDF(int sem, int year);
         Task<IActionResult> ProvisionalCertificateExportToPDF();
         Task<IActionResult> DegreeCertificateExportToPDF();
-
+        Task UpdateStuentMark(string inputData);
     }
 }

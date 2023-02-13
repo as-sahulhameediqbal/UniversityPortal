@@ -58,6 +58,10 @@ namespace UniversityPortal.Services
             var universityId = await _universityStaffService.GetUniversityId();
             var result = await UnitOfWork.StudentRepository.FindAll(x => x.UniversityId == universityId);
             var student = Mapper.Map<IEnumerable<StudentViewModel>>(result);
+            foreach (var item in student)
+            {
+                item.Role = CurrentUserService.Role;
+            }
             return student;
         }
 
@@ -197,9 +201,8 @@ namespace UniversityPortal.Services
             return CurrentUserService.Role;
         }
 
-        public async Task UpdateIsComplete()
-        {
-            var id = await GetStudentId();
+        public async Task UpdateIsComplete(Guid id)
+        {            
             var student = await UnitOfWork.StudentRepository.Get(id);
 
             student.IsCompleted = true;
