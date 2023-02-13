@@ -201,7 +201,7 @@ header {
         box-shadow: 0px 0 6px 5px rgb(209 209 209 / 32%);
 
         h1 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: #5120bc;
         }
@@ -237,6 +237,7 @@ header {
     }
 }
 
+/* Footer */
 footer.footer {
     text-align: center;
     border-top: 1px solid #cfcadb;
@@ -245,6 +246,21 @@ footer.footer {
 
     a {
         color: #5120bc;
+    }
+}
+
+/* Page UI */
+.page-head {
+    font-size: 20px;
+    font-weight: bold;
+    color: #5120bc;
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    i {
+        color: #ff5faf;
+        margin-right: 4px;
     }
 }
 
@@ -260,4 +276,8 @@ footer.footer {
         z-index: 1;
         color: #5120bc;
     }
+}
+.payment-set {
+    border: 2px dashed #5120bc;
+    padding: 10px;
 }
