@@ -5,6 +5,7 @@ using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
 using UniversityPortal.Services.Base;
 using Rotativa.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UniversityPortal.Services
 {
@@ -181,7 +182,7 @@ namespace UniversityPortal.Services
         #region degree certificate code
         public async Task<IActionResult> DegreeCertificateExportToPDF()
         {
-            var studresponse = await GetStudentProfile();
+            var studresponse = await _studentService.GetStudentProfile();
             var univresponse = await _universityService.Get(studresponse.UniversityId);
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
@@ -212,7 +213,7 @@ namespace UniversityPortal.Services
         #region provisional certificate code
         public async Task<IActionResult> ProvisionalCertificateExportToPDF()
         {
-            var studresponse = await GetStudentProfile();
+            var studresponse = await _studentService.GetStudentProfile();
             var univresponse = await _universityService.Get(studresponse.UniversityId);
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
@@ -240,7 +241,7 @@ namespace UniversityPortal.Services
         #region hall ticket code
         public async Task<IActionResult> HallTicketExportToPDF(int sem, int year)
         {
-            var studresponse = await GetStudentProfile();
+            var studresponse = await _studentService.GetStudentProfile();
             var univresponse = await _universityService.Get(studresponse.UniversityId);
 
             DateTime semesterMonth = new DateTime(2023, sem, 1);
