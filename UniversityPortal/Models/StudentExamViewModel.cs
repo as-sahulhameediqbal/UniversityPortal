@@ -22,7 +22,7 @@ namespace UniversityPortal.Models
 
         [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
-        public bool IsPaid { get; set; }
+        public bool IsPaid { get; set; }      
 
     }
 

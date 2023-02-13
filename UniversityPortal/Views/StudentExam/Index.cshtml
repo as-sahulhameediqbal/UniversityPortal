@@ -60,14 +60,12 @@
 </div>
 
 <p>
-    @if (!Model.IsPaid)
+    @if (!Model.IsPaid && !Model.IsResult)
     {
-        @*<a asp-action="Index" asp-controller="Payment" asp-page="StudExam" asp-route-id="@Model.StudentId">Pay</a>*@
-        @Html.ActionLink("Pay Exam Fees", "Index", "Payment", new { type = "ExamFees" })
-        ;
+        @Html.ActionLink("Pay Exam Fees", "Index", "Payment", new { type = "ExamFees" });        
     }
 </p>
-
+<hr />
 <div>
     <partial name="_StudentExam" model=Model.CurrentPapers />
     @if (Model.ArrearPapers.Count() > 0)
@@ -78,5 +76,5 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="SemesterExam">Back to List</a>
+    <a asp-action="Index" asp-controller="StudentSemester">Back to List</a>
 </div>

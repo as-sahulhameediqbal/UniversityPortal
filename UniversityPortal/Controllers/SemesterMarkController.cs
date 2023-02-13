@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 
@@ -36,6 +35,13 @@ namespace UniversityPortal.Controllers
         {
             var response = await _semesterMarkService.GetSemesterStudent(id, sem, year);
             return View(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Publish(int sem, int year)
+        {
+            await _semesterMarkService.PublishMarkResult(sem, year);
+            return RedirectToAction("Index", "SemesterMark");
         }
     }
 }

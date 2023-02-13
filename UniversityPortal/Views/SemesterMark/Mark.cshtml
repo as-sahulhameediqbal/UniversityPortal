@@ -48,7 +48,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="View" asp-route-sem="@Model.Semester" asp-route-year="@Model.SemesterYear">Back to List</a>
 </div>
 <div>
     <partial name="_SemesterExam" model=Model.CurrentPapers />

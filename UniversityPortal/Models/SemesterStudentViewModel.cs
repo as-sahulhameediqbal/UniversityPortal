@@ -14,6 +14,7 @@ namespace UniversityPortal.Models
 
         [DataType(DataType.Date)]
         public DateTimeOffset ResultDate { get; set; }
+        public bool IsPublishResult { get; set; }
 
         public IEnumerable<StudentModel> Students { get; set; } = null!;
     }

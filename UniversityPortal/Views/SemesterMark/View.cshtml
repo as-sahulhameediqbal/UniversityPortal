@@ -52,9 +52,9 @@
 </div>
 <div>
     <a asp-action="Index">Back to List</a> |
-    @if (!Model.IsResult)
+    @if (!Model.IsResult && Model.IsPublishResult)
     {
-        @Html.ActionLink("Publish Result", "Publish", new { /* id = Model.PrimaryKey */ })
+        @Html.ActionLink("Publish Result", "Publish", new {  sem = Model.Semester,year=Model.SemesterYear  })
     }
 
 </div>

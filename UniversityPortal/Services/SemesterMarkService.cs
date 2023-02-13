@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;
@@ -95,15 +94,18 @@ namespace UniversityPortal.Services
 
             semesterStudent.Semester = sem;
             semesterStudent.SemesterYear = year;
+            semesterStudent.IsPublishResult = studentExams.Any(x => x.IsPass);
 
             foreach (var exam in studentExams)
             {
                 var semester = semesterExam.FirstOrDefault(x => x.Id == exam.SemesterExamId);
-
-                semesterStudent.IsPublish = semester.IsPublish;
-                semesterStudent.PublishDate = semester.PublishDate;
-                semesterStudent.IsResult = exam.IsResult;
-                semesterStudent.ResultDate = exam.ResultDate;
+                if (semester != null)
+                {
+                    semesterStudent.IsPublish = semester.IsPublish;
+                    semesterStudent.PublishDate = semester.PublishDate;
+                    semesterStudent.IsResult = exam.IsResult;
+                    semesterStudent.ResultDate = exam.ResultDate;
+                }
             }
 
             return semesterStudent;
@@ -138,6 +140,37 @@ namespace UniversityPortal.Services
             }
 
             return studentModel;
+        }
+
+        public async Task PublishMarkResult(int sem, int year)
+        {
+            var universityId = await _universityStaffService.GetUniversityId();
+            var semesterExams = await UnitOfWork.SemesterExamRepository.FindAll(x => x.UniversityId == universityId
+                                                                                    && x.IsPublish == true
+                                                                                    && x.Semester == sem
+                                                                                    && x.SemesterYear == year);
+
+
+            if (semesterExams == null || semesterExams.Count() == 0)
+            {
+                return;
+            }
+
+            var studentExams = await UnitOfWork.StudentExamRepository.FindAll(x => x.UniversityId == universityId && x.IsResult == false);
+
+            foreach (var exam in studentExams)
+            {
+                var semester = semesterExams.FirstOrDefault(x => x.Id == exam.SemesterExamId);
+                if (semester != null)
+                {
+                    exam.IsResult = true;
+                    exam.ResultDate = DateTimeProvider.DateTimeOffsetNow;
+                    exam.ModifiedBy = CurrentUserService.UserId;
+                    exam.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+                    UnitOfWork.StudentExamRepository.Update(exam);
+                }
+            }
+            await UnitOfWork.Save();
         }
     }
 }

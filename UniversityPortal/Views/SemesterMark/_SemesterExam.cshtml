@@ -35,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.BaseSemester)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Marks)
+                    <input asp-for="@item.Marks" class="form-control" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsPass)

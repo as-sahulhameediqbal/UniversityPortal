@@ -25,7 +25,7 @@ namespace UniversityPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Result()
         {
-            var response = await _studentExamService.GetAllStudentSemester(true);
+            var response = await _studentExamService.GetAllStudentSemester(true);           
             return View("Index", response);
         }
     }
