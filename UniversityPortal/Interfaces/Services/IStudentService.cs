@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversityPortal.Common;
 using UniversityPortal.Models;
 
@@ -16,5 +17,6 @@ namespace UniversityPortal.Interfaces.Services
         Task<List<SelectListItem>> GetAllGender();
         Task<StudentViewModel> GetStudentProfile();
         Task UpdatePaidTutionFee();
+        Task<IActionResult> DegreeCertificateExportToPDF();
     }
 }

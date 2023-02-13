@@ -17,6 +17,7 @@
                 @Html.DisplayNameFor(model => model.ExamPublishedDate)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +35,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("View", "Index","StudentExam", new { sem=item.Semester,year = item.SemesterYear })
+                </td>
+                <td>
+                    @Html.ActionLink("Hall Ticket", "ViewHallTicket","StudentExam", new { sem=item.Semester,year = item.SemesterYear })
                 </td>
             </tr>
         }

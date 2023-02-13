@@ -8,6 +8,8 @@ using UniversityPortal.Models;
 using UniversityPortal.Data;
 using UniversityPortal.Common;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
 
 namespace UniversityPortal.Services
 {
@@ -22,15 +24,19 @@ namespace UniversityPortal.Services
 
         private readonly IUserService _userService;
         private readonly IUniversityStaffService _universityStaffService;
+        private readonly IUniversityService _universityService;
+
         public StudentService(IUnitOfWork unitOfWork,
                               IMapper mapper,
                               IDateTimeProvider dateTimeProvider,
                               ICurrentUserService currentUserService,
                               IUserService userService,
-                              IUniversityStaffService universityStaffService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
+                              IUniversityStaffService universityStaffService,
+                              IUniversityService universityService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
             _userService = userService;
             _universityStaffService = universityStaffService;
+            _universityService = universityService;
         }
 
         public async Task<List<SelectListItem>> GetAllGender()
@@ -186,5 +192,33 @@ namespace UniversityPortal.Services
             return AppResult.msg(true, "Student not exist");
         }
 
+        public async Task<IActionResult> DegreeCertificateExportToPDF()
+        {
+            var studresponse = await GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId); 
+            CertificateViewModel certificateViewModel = new CertificateViewModel();
+            certificateViewModel = new CertificateViewModel();
+            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.ClassType = "FIRST CLASS with DISTINCTION";
+            certificateViewModel.DegreeName = studresponse.Program;
+            certificateViewModel.Department = studresponse.Department;
+            certificateViewModel.UniversityName = univresponse.Name;             // for export "Rotativa" used (wkhtmltopdf.exe)
+            if (certificateViewModel != null)
+            {
+                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                return GeneratePDF(certificateViewModel);
+            }
+            return null;
+        }
+
+        public ViewAsPdf GeneratePDF(CertificateViewModel certificateViewModel)
+        {
+            return new ViewAsPdf("DegreeCertificateExportToPDF", certificateViewModel)
+            {
+                PageMargins = { Left = 0, Bottom = 5, Right = 10, Top = 5 },
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+            };
+        }
     }
 }
