@@ -202,6 +202,17 @@
                         <td>@item.ExamDate.ToString("dd/MM/yyyy hh:mm tt")</td>
                     </tr>
                 }
+                @if(Model.StudentExam.ArrearPapers.Count()>0)
+                {
+                    @foreach (var item in Model?.StudentExam?.ArrearPapers)
+                    {
+                        <tr>
+                            <td>@item.Subject</td>
+                            <td>@item.BaseSemester</td>
+                            <td>@item.ExamDate.ToString("dd/MM/yyyy hh:mm tt")</td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
 

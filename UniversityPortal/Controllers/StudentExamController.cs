@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Rotativa.AspNetCore;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
-using UniversityPortal.Models;
 
 namespace UniversityPortal.Controllers
 {
@@ -11,12 +9,10 @@ namespace UniversityPortal.Controllers
     public class StudentExamController : Controller
     {
         private IStudentExamService _studentExamService;
-        private IStudentService _studentService;
 
-        public StudentExamController(IStudentExamService studentExamService, IStudentService studentService)
+        public StudentExamController(IStudentExamService studentExamService)
         {
             _studentExamService= studentExamService;
-            _studentService = studentService;
         }
 
 
