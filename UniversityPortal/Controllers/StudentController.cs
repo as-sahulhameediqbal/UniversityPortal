@@ -14,10 +14,12 @@ namespace UniversityPortal.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
+        private readonly IUniversityService _universityService;
 
-        public StudentController(IStudentService studentService)
+        public StudentController(IStudentService studentService, IUniversityService universityService)
         {
             _studentService = studentService;
+            _universityService = universityService;
         }
 
         
@@ -94,13 +96,16 @@ namespace UniversityPortal.Controllers
 
         public IActionResult DegreeCertificateExportToPDF()
         {
+            var studresponse = await _studentService.GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
+
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = "Kirubakaran";
-            certificateViewModel.ClassType = "FIRST CLASS with Distinction";
-            certificateViewModel.DegreeName = "MCA";
-            certificateViewModel.Department = "Computer Applications";
-            certificateViewModel.UniversityName = "Bharathiar";
+            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.ClassType = "FIRST CLASS with DISTINCTION";
+            certificateViewModel.DegreeName = studresponse.Program;
+            certificateViewModel.Department = studresponse.Department;
+            certificateViewModel.UniversityName = univresponse.Name;
 
             // for export "Rotativa" used (wkhtmltopdf.exe)
             if (certificateViewModel != null)
@@ -120,10 +125,13 @@ namespace UniversityPortal.Controllers
 
         public IActionResult ProvisionalCertificateExportToPDF()
         {
+            var studresponse = await _studentService.GetStudentProfile();
+            var univresponse = await _universityService.Get(studresponse.UniversityId);
+
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
-            certificateViewModel.Name = "Kirubakaran";
-            certificateViewModel.UniversityName = "Bharathiar";
+            certificateViewModel.Name = studresponse.Name;
+            certificateViewModel.UniversityName = univresponse.Name;
 
             // for export "Rotativa" used (wkhtmltopdf.exe)
             if (certificateViewModel != null)
