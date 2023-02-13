@@ -102,9 +102,9 @@ namespace UniversityPortal.Controllers
             CertificateViewModel certificateViewModel = new CertificateViewModel();
             certificateViewModel = new CertificateViewModel();
             certificateViewModel.Name = studresponse.Name;
-            certificateViewModel.ClassType = "FIRST CLASS with Distinction";
-            certificateViewModel.DegreeName = "MCA";
-            certificateViewModel.Department = "Computer Applications";
+            certificateViewModel.ClassType = "FIRST CLASS with DISTINCTION";
+            certificateViewModel.DegreeName = studresponse.Program;
+            certificateViewModel.Department = studresponse.Department;
             certificateViewModel.UniversityName = univresponse.Name;
 
             // for export "Rotativa" used (wkhtmltopdf.exe)
