@@ -146,6 +146,19 @@ namespace UniversityPortal.Services
             UnitOfWork.StudentRepository.Update(student);
         }
 
+        public async Task UpdatePaidTutionFee()
+        {
+            var id = await GetStudentId();
+            var student = await UnitOfWork.StudentRepository.Get(id);
+
+            student.IsPaid = true;
+            student.ModifiedBy = CurrentUserService.UserId;
+            student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+
+            UnitOfWork.StudentRepository.Update(student);
+            await UnitOfWork.Save();
+        }
+
         private async Task<AppResponse> IsStudentExists(StudentViewModel model)
         {
             if (model.Id == Guid.Empty)

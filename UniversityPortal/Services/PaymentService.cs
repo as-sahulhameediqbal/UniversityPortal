@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using UniversityPortal.Common;
-using UniversityPortal.Entity;
 using UniversityPortal.Interfaces.Common;
 using UniversityPortal.Interfaces.Repository;
 using UniversityPortal.Interfaces.Services;
@@ -13,14 +11,17 @@ namespace UniversityPortal.Services
     {
 
         private readonly IStudentService _studentService;
+        private readonly IStudentExamService _studentExamService;
 
         public PaymentService(IUnitOfWork unitOfWork,
                               IMapper mapper,
                               IDateTimeProvider dateTimeProvider,
                               ICurrentUserService currentUserService,
-                              IStudentService studentService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
+                              IStudentService studentService,
+                              IStudentExamService studentExamService) : base(unitOfWork, mapper, dateTimeProvider, currentUserService)
         {
             _studentService = studentService;
+            _studentExamService = studentExamService;
         }
 
         public async Task<IEnumerable<PaymentViewModel>> GetAll()
@@ -29,28 +30,17 @@ namespace UniversityPortal.Services
             var university = Mapper.Map<IEnumerable<PaymentViewModel>>(result);
             return university;
         }
-                
-        public async Task<int> Save(PaymentViewModel model)
+
+        public async Task Save(PaymentViewModel model)
         {
-            var id = await _studentService.GetStudentId();
-            var response = await _studentService.Get(id);
-            await Update(response);
-
-            var result = await UnitOfWork.Save();
-
-            return result;
-        }
-
-        private async Task Update(StudentViewModel model)
-        {
-            var payment = await UnitOfWork.StudentRepository.Get(model.Id);
-
-            payment = Mapper.Map(model, payment);
-            payment.IsPaid = true;
-            payment.ModifiedBy = CurrentUserService.UserId;
-            payment.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
-
-            UnitOfWork.StudentRepository.Update(payment);
+            if (string.IsNullOrEmpty(model.FeesType))
+            {
+                await _studentService.UpdatePaidTutionFee();
+            }
+            else
+            {
+                await _studentExamService.UpdatePaidExamFee(model.Sem, model.Year);
+            }
         }
     }
 }
