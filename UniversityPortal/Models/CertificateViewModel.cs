@@ -14,5 +14,6 @@ namespace UniversityPortal.Models
         public string Gender { get; set; } = null!;
         public string Month { get; set; } = null!;
         public string Year { get; set; } = null!;
+        public StudentExamViewModel? StudentExam { get; set; } = null!;
     }
 }

@@ -27,9 +27,11 @@
                 <span asp-validation-for="CardNo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-date" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+                <label>Valid thru</label>
+                <input asp-for="DateMM" style="width:30%;" maxlength="3" placeholder="MM" />
+                <input asp-for="DateYY" style="width:30%;" maxlength="4" placeholder="YYYY" />
+                <span asp-validation-for="DateMM" class="text-danger"></span>
+                <span asp-validation-for="DateYY" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CVV" class="control-label"></label>

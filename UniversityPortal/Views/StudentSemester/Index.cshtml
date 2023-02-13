@@ -37,7 +37,7 @@
                     @Html.ActionLink("View", "Index","StudentExam", new { sem=item.Semester,year = item.SemesterYear })
                 </td>
                 <td>
-                    @Html.ActionLink("Hall Ticket", "ViewHallTicket","StudentExam", new { sem=item.Semester,year = item.SemesterYear })
+                    @Html.ActionLink("Hall Ticket", "ViewHallTicket","StudentExam", new { sem=item.Semester,year = item.SemesterYear }, new { target = "_blank" })
                 </td>
             </tr>
         }
