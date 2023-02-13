@@ -1,45 +1,50 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UniversityPortal.Entity;
+using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
-using UniversityPortal.Services;
 
 namespace UniversityPortal.Controllers
 {
+    [Authorize(Roles = UserRoles.Student)]
     public class PaymentController : Controller
     {
         private readonly IPaymentService _paymentService;
-        private readonly IStudentService _studentService;
 
-        public PaymentController(IPaymentService paymentService, IStudentService studentService)
+        public PaymentController(IPaymentService paymentService)
         {
             _paymentService = paymentService;
-            _studentService = studentService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string type)
-        {            
-            PaymentViewModel model =new PaymentViewModel();
-            model.FeesType = type;
+        public async Task<IActionResult> Index(string type, int sem, int year)
+        {
+            PaymentViewModel model = new PaymentViewModel();
+            if (!string.IsNullOrEmpty(type))
+            {
+                model.FeesType = type;
+                model.Sem = sem;
+                model.Year = year;
+            }
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPayment(PaymentViewModel model)
+        public async Task<IActionResult> Index(PaymentViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var result = await _paymentService.Save(model);
-            //if (!result.Success)
-            //{
-            //    TempData["Error"] = result.Message;
-            //    return View(model);
-            //}
-            return RedirectToAction("ViewProfile", "Student");
+            await _paymentService.Save(model);
+            if (string.IsNullOrEmpty(model.FeesType))
+            {
+                return RedirectToAction("ViewProfile", "Student");
+            }
+            else
+            {
+                return RedirectToAction("Index", "StudentSemester");
+            }
         }
     }
 }

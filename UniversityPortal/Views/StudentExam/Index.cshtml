@@ -62,7 +62,7 @@
 <p>
     @if (!Model.IsPaid && !Model.IsResult)
     {
-        @Html.ActionLink("Pay Exam Fees", "Index", "Payment", new { type = "ExamFees" });        
+        @Html.ActionLink("Pay Exam Fees", "Index", "Payment", new { type = "ExamFees",sem=Model.Semester,year=Model.SemesterYear });
     }
 </p>
 <hr />

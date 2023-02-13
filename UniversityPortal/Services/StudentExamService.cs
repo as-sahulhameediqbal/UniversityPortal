@@ -133,5 +133,45 @@ namespace UniversityPortal.Services
 
             return semesterExams;
         }
+
+        public async Task UpdatePaidExamFee(int sem, int year)
+        {
+            if (sem == 0 || year == 0)
+            {
+                return;
+            }
+
+            var studentId = await _studentService.GetStudentId();
+            var universityId = await _studentService.GetUniversityId();
+
+            var studentExam = await UnitOfWork.StudentExamRepository.FindAll(x => x.UniversityId == universityId
+                                                                                && x.StudentId == studentId
+                                                                                && x.IsPaid == false);
+
+            if (studentExam == null || studentExam.Count() == 0)
+            {
+                return;
+            }
+
+            var semesterExam = await UnitOfWork.SemesterExamRepository.FindAll(x => x.UniversityId == universityId
+                                                                                   && x.IsPublish == true
+                                                                                   && x.Semester == sem
+                                                                                   && x.SemesterYear == year);
+
+
+            foreach (var exam in studentExam)
+            {
+                var semester = semesterExam.FirstOrDefault(x => x.Id == exam.SemesterExamId);
+                if (semester != null)
+                {
+                    exam.IsPaid = true;
+                    exam.ModifiedBy = CurrentUserService.UserId;
+                    exam.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
+                    UnitOfWork.StudentExamRepository.Update(exam);
+                }
+            }
+            await UnitOfWork.Save();
+
+        }
     }
 }

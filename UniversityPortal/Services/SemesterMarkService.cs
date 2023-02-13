@@ -38,15 +38,18 @@ namespace UniversityPortal.Services
 
             foreach (var exam in semesterExam)
             {
-                var studentExam = studentExams.FirstOrDefault(x => x.SemesterExamId == exam.Id);
-                var sem = new SemesterViewModel()
+                var studentExam = studentExams.FirstOrDefault(x => x.SemesterExamId == exam.Id && x.IsPaid == true);
+                if (studentExam != null)
                 {
-                    Semester = exam.Semester,
-                    SemesterYear = exam.SemesterYear,
-                    IsResult = studentExam.IsResult,
-                    ResultDate = studentExam.ResultDate
-                };
-                list.Add(sem);
+                    var sem = new SemesterViewModel()
+                    {
+                        Semester = exam.Semester,
+                        SemesterYear = exam.SemesterYear,
+                        IsResult = studentExam.IsResult,
+                        ResultDate = studentExam.ResultDate
+                    };
+                    list.Add(sem);
+                }
             }
 
             var exams = list.DistinctBy(x => x.SemesterYear + "-" + x.Semester)

@@ -9,10 +9,12 @@
 <div class="row">
     <div class="col-md-4">
         <h4>Payment Options: Card(Debit Card Only)</h4>
-        <form asp-action="AddPayment">
+        <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input type="hidden" asp-for=@Model.FeesType />
+                <input type="hidden" asp-for=@Model.Sem />
+                <input type="hidden" asp-for=@Model.Year />
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
