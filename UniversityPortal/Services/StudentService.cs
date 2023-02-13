@@ -191,5 +191,10 @@ namespace UniversityPortal.Services
 
             return AppResult.msg(true, "Student not exist");
         }
+
+        public string GetRole()
+        {
+            return CurrentUserService.Role;
+        }
     }
 }
