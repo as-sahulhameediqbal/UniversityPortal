@@ -17,6 +17,12 @@
         public decimal TutionFee { get; set; }
         public bool IsPaid { get; set; }
         public bool IsCompleted { get; set; }
+        public DateTimeOffset CompletedDate { get; set; }        
+        public Guid ExistingUniversityId { get; set; }
+        public string ExistingRollNumber { get; set; } = null!;
+        public bool IsVerifyCertifiate { get; set; }
+        public bool IsRejectCertifiate { get; set; }
+        public DateTimeOffset VerifyDate { get; set; }
         public bool IsActive { get; set; }
 
     }

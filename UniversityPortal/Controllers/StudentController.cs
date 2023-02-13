@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
-using System.Data;
 using UniversityPortal.Data;
 using UniversityPortal.Interfaces.Services;
 using UniversityPortal.Models;
-using UniversityPortal.Services;
 
 namespace UniversityPortal.Controllers
 {

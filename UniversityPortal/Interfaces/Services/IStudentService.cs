@@ -19,5 +19,7 @@ namespace UniversityPortal.Interfaces.Services
         Task UpdatePaidTutionFee();
         string GetRole();
         Task UpdateIsComplete();
+        Task<IEnumerable<StudentCertificateViewModel>> GetStudentCertificateAll();
+        Task VerifyStudentCertificate(Guid id, bool status);
     }
 }

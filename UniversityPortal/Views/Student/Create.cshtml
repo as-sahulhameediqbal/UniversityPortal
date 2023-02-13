@@ -55,7 +55,6 @@
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                @*<input asp-for="Gender" class="form-control" />*@
                 <select asp-for="Gender" asp-items="Model.Genders" class="form-control"></select>
                 <input type="hidden" asp-for="Gender" />
                 <span asp-validation-for="Gender" class="text-danger"></span>
@@ -79,6 +78,17 @@
                 <label asp-for="TutionFee" class="control-label"></label>
                 <input asp-for="TutionFee" class="form-control" />
                 <span asp-validation-for="TutionFee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExistingUniversityId" class="control-label"></label>
+                <select asp-for="ExistingUniversityId" asp-items="Model.Universities" class="form-control"></select>
+                <input type="hidden" asp-for="ExistingUniversityId" />
+                <span asp-validation-for="ExistingUniversityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExistingRollNumber" class="control-label"></label>
+                <input asp-for="ExistingRollNumber" class="form-control" />
+                <span asp-validation-for="ExistingRollNumber" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
