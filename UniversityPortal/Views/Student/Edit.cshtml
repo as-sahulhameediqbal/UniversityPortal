@@ -77,6 +77,17 @@
                 <input asp-for="TutionFee" class="form-control" />
                 <span asp-validation-for="TutionFee" class="text-danger"></span>
             </div>
+             <div class="form-group">
+                <label asp-for="ExistingUniversityName" class="control-label"></label>
+                <select asp-for="ExistingUniversityName" asp-items="Model.Universities" class="form-control"></select>
+                <input type="hidden" asp-for="ExistingUniversityName" />
+                <span asp-validation-for="ExistingUniversityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExistingRollNumber" class="control-label"></label>
+                <input asp-for="ExistingRollNumber" class="form-control" />
+                <span asp-validation-for="ExistingRollNumber" class="text-danger"></span>
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)

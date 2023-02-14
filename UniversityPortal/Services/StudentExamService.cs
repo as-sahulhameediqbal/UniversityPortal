@@ -306,10 +306,8 @@ namespace UniversityPortal.Services
             {
                 throw;
             }
-            await UnitOfWork.Save();
-            return;
+            await UnitOfWork.Save();           
         }
-
         
     }
 }

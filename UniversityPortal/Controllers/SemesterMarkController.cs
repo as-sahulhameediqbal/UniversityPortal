@@ -52,7 +52,7 @@ namespace UniversityPortal.Controllers
         public async Task<IActionResult> SaveMark(string model)
         {
             await _studentExamService.UpdateStuentMark(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "SemesterMark");
         }
     }
 }

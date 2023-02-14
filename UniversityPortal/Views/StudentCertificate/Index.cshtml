@@ -4,15 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Verify Certificate</h1>
 
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+        <tr>           
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -55,10 +52,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
+            <tr>               
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -102,8 +96,8 @@
                 else
                 {
                     <td>
-                        @Html.ActionLink("Approve", "Index", new {  id=item.Id, status = true  }) |
-                        @Html.ActionLink("Reject", "Index", new {  id=item.Id, status = false })
+                        @Html.ActionLink("Approve", "VerifyCertificate", new {  id=item.Id, status = true  }) |
+                        @Html.ActionLink("Reject", "VerifyCertificate", new {  id=item.Id, status = false })
                     </td>
                 }
             </tr>

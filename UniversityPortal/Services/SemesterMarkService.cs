@@ -134,7 +134,7 @@ namespace UniversityPortal.Services
                 Semester = sem,
                 SemesterYear = year
             };
-
+          
             var studentExams = await _studentExamService.GetStudentSemesterExam(studentId, universityId, sem, year);
 
             if (studentExams != null)

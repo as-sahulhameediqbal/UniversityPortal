@@ -22,7 +22,7 @@ namespace UniversityPortal.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(Guid id, bool status)
+        public async Task<IActionResult> VerifyCertificate(Guid id, bool status)
         {
             await _studentService.VerifyStudentCertificate(id, status);
             return RedirectToAction("Index", "StudentCertificate");

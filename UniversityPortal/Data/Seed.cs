@@ -20,7 +20,7 @@ namespace UniversityPortal.Data
 
                 //Users
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-                string adminUserEmail = "PortalAdmin@gmail.com";
+                string adminUserEmail = "PortalAdmin@linkmyuni.com";
 
                 var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
                 if (adminUser == null)

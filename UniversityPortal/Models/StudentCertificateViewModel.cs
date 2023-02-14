@@ -6,7 +6,9 @@ namespace UniversityPortal.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
+        [Display(Name = "AdmissionNo")]
         public string AdmissionNumber { get; set; } = null!;
+
         public string RollNumber { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Program { get; set; } = null!;
@@ -21,9 +23,11 @@ namespace UniversityPortal.Models
         public DateTimeOffset CompletedDate { get; set; }
 
         [Display(Name = "Applied University")]
-        public string University { get; set; } = null!;
+        public string? University { get; set; } = null!;
 
+        [Display(Name = "Verified")]
         public bool IsVerifyCertifiate { get; set; }
+        [Display(Name = "Rejected")]
         public bool IsRejectCertifiate { get; set; }
 
         [DataType(DataType.Date)]

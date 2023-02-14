@@ -31,7 +31,8 @@ namespace UniversityPortal.Controllers
             var response = new StudentViewModel();
             response.IsActive = true;
             response.JoiningDate = DateTimeOffset.Now;
-            response.Genders = genders;            
+            response.Genders = genders;
+            response.Universities = await _studentService.GetAllUniversities();
             return View(response);
         }
 
@@ -68,6 +69,7 @@ namespace UniversityPortal.Controllers
             var genders = await _studentService.GetAllGender();
             var response = await _studentService.Get(id);
             response.Genders = genders;
+            response.Universities = await _studentService.GetAllUniversities();
             return View(response);
         }
 

@@ -33,7 +33,7 @@ namespace UniversityPortal.Services
 
         public async Task Save(PaymentViewModel model)
         {
-            if (string.IsNullOrEmpty(model.FeesType))
+            if (model.FeesType == "TutionFees")
             {
                 await _studentService.UpdatePaidTutionFee();
             }

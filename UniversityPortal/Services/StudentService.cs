@@ -42,6 +42,33 @@ namespace UniversityPortal.Services
             return Genders;
         }
 
+        public async Task<List<SelectListItem>> GetAllUniversities()
+        {
+            var universities = new List<SelectListItem>();
+            var newitem = new SelectListItem
+            {
+                Value = " ",
+                Text = "-- Select --"
+            };
+            universities.Add(newitem);
+
+            var universityList = await _universityService.GetAll();
+            if (universityList == null | universityList.Count() == 0)
+            {
+                return universities;
+            }
+            
+            foreach (var university in universityList)
+            {
+                var item = new SelectListItem
+                {
+                    Value = university.Name,
+                    Text = university.Name
+                };
+                universities.Add(item);
+            }
+            return universities;
+        }
 
         public async Task<StudentViewModel> Get(Guid id)
         {
@@ -200,10 +227,11 @@ namespace UniversityPortal.Services
         }
 
         public async Task UpdateIsComplete(Guid id)
-        {            
+        {
             var student = await UnitOfWork.StudentRepository.Get(id);
 
             student.IsCompleted = true;
+            student.CompletedDate = DateTimeProvider.DateTimeOffsetNow;
             student.ModifiedBy = CurrentUserService.UserId;
             student.ModifiedDate = DateTimeProvider.DateTimeOffsetNow;
 
@@ -214,9 +242,10 @@ namespace UniversityPortal.Services
         public async Task<IEnumerable<StudentCertificateViewModel>> GetStudentCertificateAll()
         {
             var universityId = await _universityStaffService.GetUniversityId();
+            var universityName = await _universityService.GetName(universityId);
             var students = await UnitOfWork.StudentRepository.GetAll();
 
-            var newstudents = students.Where(x => x.ExistingUniversityId == universityId);
+            var newstudents = students.Where(x => x.ExistingUniversityName == universityName);
             if (newstudents == null || newstudents.Count() == 0)
             {
                 return Enumerable.Empty<StudentCertificateViewModel>();

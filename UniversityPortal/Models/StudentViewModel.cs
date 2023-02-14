@@ -56,11 +56,11 @@ namespace UniversityPortal.Models
         public string? Role { get; set; }
 
         [Display(Name = "Previous University")]
-        public Guid ExistingUniversityId { get; set; }
-        public List<SelectListItem>? Universities { get; set; } = null;
+        public string? ExistingUniversityName { get; set; }
+        public List<SelectListItem>? Universities { get; set; }
 
         [Display(Name = "Previous University RollNumber")]
-        public string ExistingRollNumber { get; set; } = null!;
+        public string? ExistingRollNumber { get; set; }
         public bool IsVerifyCertifiate { get; set; }
         public bool IsRejectCertifiate { get; set; }
     }

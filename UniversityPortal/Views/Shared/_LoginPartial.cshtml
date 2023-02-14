@@ -19,6 +19,9 @@
             <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="StudentCertificate" asp-action="Index">Verify Certificate</a>
+            </li>
         }
         else if (@User.IsInRole("COE"))
         {
@@ -36,10 +39,7 @@
         {
             <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Index">Students</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="SemesterExam" asp-action="Marks">Student Certificate</a>
-            </li>
+            </li>           
         }
         else if (@User.IsInRole("Student"))
         {
