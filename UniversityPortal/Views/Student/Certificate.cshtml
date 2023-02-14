@@ -3,18 +3,20 @@
     ViewData["Title"] = "Student Certificate";
 }
 
-<h1>Student Certificate</h1>
+<div class="page-head"><i class="fa-solid fa-graduation-cap"></i> Student Certificate</div>
 
 @if (Model.IsCompleted)
 { 
-<li class="nav-item">
-    <a class="nav-link" asp-area="" target="_blank" asp-controller="StudentExam" asp-action="ViewDegreeCertificate">Degree Certificate</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" asp-area="" target="_blank" asp-controller="StudentExam" asp-action="ViewProvisionalCertificate">Provisional Certificate</a>
-</li>
+    <div class="row mx-2">
+        <div class="col-md-3">
+            <a class="nav-link btn-primary" asp-area="" target="_blank" asp-controller="StudentExam" asp-action="ViewDegreeCertificate">Degree Certificate</a>
+        </div>
+        <div class="col-md-3">
+            <a class="nav-link btn-primary" asp-area="" target="_blank" asp-controller="StudentExam" asp-action="ViewProvisionalCertificate">Provisional Certificate</a>
+        </div>
+    </div>
 }
 else
 {
-    <div>Amount is pending. Please pay all the fees.</div>
+    <div class="mt-2 mx-2">Amount is pending. Please pay all the fees.</div>
 }

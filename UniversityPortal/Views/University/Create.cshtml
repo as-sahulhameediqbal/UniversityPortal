@@ -4,10 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="page-head"><i class="fa-solid fa-building-columns"></i> Create University</div>
 
-<hr />
-<div class="row">
+<div class="row mx-2">
     @if (TempData["Error"] != null)
     {
         <div class="col-md-12 alert alert-danger">
@@ -64,8 +63,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-2 mx-2">
+    <a class="btn btn-back" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

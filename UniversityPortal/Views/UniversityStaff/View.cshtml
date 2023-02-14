@@ -4,11 +4,10 @@
     ViewData["Title"] = "View";
 }
 
-<h1>View</h1>
+<div class="page-head"><i class="fa-solid fa-clipboard-user"></i> View Staff</div>
 
 <div>
-    <hr />
-    <dl class="row">
+    <dl class="row mx-2">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -47,7 +46,7 @@
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) |
-    <a asp-action="Index">Back to List</a>
+<div class="mt-2 mx-2">
+    <span class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new {  id = Model.Id  })</span> |
+    <a class="btn btn-back" asp-action="Index">Back to List</a>
 </div>
