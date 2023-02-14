@@ -119,31 +119,31 @@
         </dd>
     </dl>
 </div>
-<div>
+<div class="mt-2 mx-2">
     @if (@Model.Role == "Student")
     {
-        <a asp-controller="Home" asp-action="Index">Back to List</a>
+        <a class="btn btn-back" asp-controller="Home" asp-action="Index">Back to List</a>
     }
     else if (Model.Role == "Accountant" && Model.IsPaid == true && Model.IsCompleted == false)
     {
         @Html.ActionLink("Course Completed", "CourseComplete", "Student",new {id=Model.Id})        
         <span>|</Span>
-        <a asp-action="Index">Back to List</a>
+        <a class="btn btn-back" asp-action="Index">Back to List</a>
     }
     else if (Model.Role == "Admin")
     {
         @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) 
         <span>|</Span>
-        <a asp-action="Index">Back to List</a>
+        <a class="btn btn-back" asp-action="Index">Back to List</a>
     }
     else
     {
-         <a asp-action="Index">Back to List</a>
+         <a class="btn btn-back" asp-action="Index">Back to List</a>
     }
 
     @if (Model.IsPaid == false && @Model.Role == "Student")
     {   
         <span>|</Span>
-        @Html.ActionLink("Pay Tution Fees", "Index", "Payment", new { type = "TutionFees" });
+        <div class="btn btn-primary">@Html.ActionLink("Pay Tution Fees", "Index", "Payment", new { type = "TutionFees" })</div>
     }
 </div>

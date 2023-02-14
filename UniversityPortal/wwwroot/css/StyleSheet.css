@@ -43,8 +43,29 @@ a {
 .btn-primary:focus {
   box-shadow: 0 0 4px rgba(81, 32, 188, 0.25);
 }
+.btn-primary a {
+  color: #fff;
+  text-decoration: none;
+}
 
 .btn-primary:active:focus {
+  box-shadow: none;
+}
+
+.btn-back {
+  background: #fff;
+  color: #5120bc;
+  border: 2px solid #5120bc;
+}
+.btn-back:hover {
+  background: #5120bc;
+  color: #fff;
+}
+.btn-back:focus {
+  box-shadow: 0 0 4px rgba(81, 32, 188, 0.25);
+}
+
+.btn-back:active:focus {
   box-shadow: none;
 }
 
